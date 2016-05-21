@@ -22,11 +22,6 @@ build:
         cwd: src/FirstMicroservice        
         code: |
           dotnet build
-    - script:
-        name: publish
-        cwd: src/FirstMicroservice        
-        code: |
-          dotnet publish -o publish	 
 test:
   steps: 
     - script:
@@ -46,6 +41,11 @@ test:
           dotnet test          
 deploy:
   steps:
+    - script:
+        name: publish
+        cwd: src/FirstMicroservice        
+        code: |
+          dotnet publish -o publish
     - script:
         name: copy binary
         cwd: src/FirstMicroservice
