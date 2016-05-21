@@ -44,6 +44,11 @@ build:
 test:
   steps: 
     - script:
+        name: test-build
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet build
+    - script:
         name: test-run
         cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
