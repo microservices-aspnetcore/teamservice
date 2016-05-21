@@ -27,11 +27,6 @@ build:
         cwd: src/FirstMicroservice        
         code: |
           dotnet publish -o publish	 
-    - script:
-        name: copy binary
-        code: |
-          cp -r . $WERCKER_OUTPUT_DIR/app 
-          cd $WERCKER_OUTPUT_DIR/app
 test:
   steps: 
     - script:
@@ -51,6 +46,12 @@ test:
           dotnet test          
 deploy:
   steps:
+    - script:
+        name: copy binary
+        cwd: src/FirstMicroservice
+        code: |
+          cp -r . $WERCKER_OUTPUT_DIR/app 
+          cd $WERCKER_OUTPUT_DIR/app
     - internal/docker-push:
         username: $USERNAME
         password: $PASSWORD
