@@ -50,6 +50,10 @@ test:
           dotnet test
 deploy:
   steps:
+    - script:
+        name: copy binary
+        code: |
+          cp -r $WERCKER_CACHE_DIR/src/FirstMicroservice $WERCKER_OUTPUT_DIR/app   
     - internal/docker-push:
         username: $USERNAME
         password: $PASSWORD
