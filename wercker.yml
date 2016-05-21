@@ -35,20 +35,20 @@ test:
   steps: 
     - script:
         name: test-restore
-        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
+        #cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
           echo $WERCKER_CACHE_DIR
-          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet restore
+          # NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet restore
     - script:
         name: test-build
-        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
+        #cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
-          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet build
+          # NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet build
     - script:
         name: test-run
-        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
+        #cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
-          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet test
+          # NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet test
 deploy:
   steps:
     - internal/docker-push:
