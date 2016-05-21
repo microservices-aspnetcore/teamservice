@@ -40,18 +40,20 @@ test:
         cwd: test/FirstMicroservice.UnitTests
         code: |
           echo $WERCKER_OUTPUT_DIR/app
-          ls $WERCKER_OUTPUT_DIR/app
-          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet restore
+#          ls $WERCKER_OUTPUT_DIR/app
+#          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet restore
     - script:
         name: build
         cwd: test/FirstMicroservice.UnitTests
         code: |
-          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet build       
+          echo $WERCKER_OUTPUT_DIR/app        
+#          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet build       
     - script:
         name: test
         cwd: test/FirstMicroservice.UnitTests
         code: |
-          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet test          
+          echo $WERCKER_OUTPUT_DIR/app        
+#          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet test          
 deploy:
   steps:
     - internal/docker-push:
