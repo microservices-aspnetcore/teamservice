@@ -29,30 +29,25 @@ build:
           dotnet publish -o publish
     - script:
         name: copy binary
-        cwd: src/FirstMicroservice
         code: |
-          cp -r . $WERCKER_OUTPUT_DIR/app 
+          cp -r . $WERCKER_CACHE_DIR 
 test:
   steps: 
     - script:
         name: test-restore
-        cwd: test/FirstMicroservice.UnitTests
+        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
-          echo "$WERCKER_OUTPUT_DIR/app"
-          ls "$WERCKER_OUTPUT_DIR/app"
-#          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet restore
+          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet test
     - script:
         name: test-build
-        cwd: test/FirstMicroservice.UnitTests
+        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
-          echo $WERCKER_OUTPUT_DIR/app        
-#          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet build       
+          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet test
     - script:
         name: test-run
-        cwd: test/FirstMicroservice.UnitTests
+        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
-          echo $WERCKER_OUTPUT_DIR/app        
-#          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet test          
+          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet test
 deploy:
   steps:
     - internal/docker-push:
