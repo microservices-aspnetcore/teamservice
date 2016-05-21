@@ -31,24 +31,9 @@ build:
         name: build
         cwd: test/FirstMicroservice.UnitTests
         code: |
-          dotnet build
-    - script:
-        name: test
-        cwd: test/FirstMicroservice.UnitTests
-        code: |
-          dotnet test          
+          dotnet build        
 test:
   steps: 
-    - script:
-        name: restore
-        cwd: test/FirstMicroservice.UnitTests
-        code: |
-          dotnet restore
-    - script:
-        name: build
-        cwd: test/FirstMicroservice.UnitTests
-        code: |
-          dotnet build
     - script:
         name: test
         cwd: test/FirstMicroservice.UnitTests
