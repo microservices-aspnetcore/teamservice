@@ -47,7 +47,7 @@ test:
         name: test-run
         cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
-            ls $WERCKER_CACHE_DIR/test/FirstMicroservice
+            ls $WERCKER_CACHE_DIR
           #NUGET_PACKAGES=$WERCKER_CACHE_DIR/test/FirstMicroservice/publish dotnet test
 deploy:
   steps:
