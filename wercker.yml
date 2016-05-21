@@ -22,6 +22,21 @@ build:
         cwd: src/FirstMicroservice        
         code: |
           dotnet build
+    - script:
+        name: restore
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+          dotnet restore
+    - script:
+        name: build
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+          dotnet build
+    - script:
+        name: test
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+          dotnet test          
 test:
   steps: 
     - script:

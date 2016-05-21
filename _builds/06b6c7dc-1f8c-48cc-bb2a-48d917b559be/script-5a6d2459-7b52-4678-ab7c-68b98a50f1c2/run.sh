@@ -1,0 +1,2 @@
+set -e
+dotnet restore
