@@ -47,7 +47,7 @@ test:
         name: test
         cwd: test/FirstMicroservice.UnitTests
         code: |
-          dotnet test
+          dotnet test          
 deploy:
   steps:
     - internal/docker-push:
