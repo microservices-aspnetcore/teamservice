@@ -38,6 +38,8 @@ test:
         name: test
         cwd: test/FirstMicroservice.UnitTests
         code: |
+          echo $WERCKER_CACHE_DIR
+          ls $WERCKER_CACHE_DIR
           dotnet test          
 deploy:
   steps:
