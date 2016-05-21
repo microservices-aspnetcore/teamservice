@@ -35,20 +35,20 @@ build:
 test:
   steps: 
     - script:
-        name: restore
+        name: test-restore
         cwd: test/FirstMicroservice.UnitTests
         code: |
-          echo $WERCKER_OUTPUT_DIR/app
-#          ls $WERCKER_OUTPUT_DIR/app
+          echo "$WERCKER_OUTPUT_DIR/app"
+          ls "$WERCKER_OUTPUT_DIR/app"
 #          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet restore
     - script:
-        name: build
+        name: test-build
         cwd: test/FirstMicroservice.UnitTests
         code: |
           echo $WERCKER_OUTPUT_DIR/app        
 #          NUGET_PACKAGES=$WERCKER_OUTPUT_DIR/app/publish dotnet build       
     - script:
-        name: test
+        name: test-run
         cwd: test/FirstMicroservice.UnitTests
         code: |
           echo $WERCKER_OUTPUT_DIR/app        
