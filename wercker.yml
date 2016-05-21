@@ -32,7 +32,6 @@ build:
         cwd: src/FirstMicroservice
         code: |
           cp -r . $WERCKER_OUTPUT_DIR/app 
-          cd $WERCKER_OUTPUT_DIR/app           
 test:
   steps: 
     - script:
