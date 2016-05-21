@@ -38,29 +38,19 @@ build:
         code: |
           dotnet build
     - script:
-        name: copy binary
-        code: |
-          cp -r . $WERCKER_CACHE_DIR 
-test:
-  steps: 
-    - script:
-        name: test-build
+        name: test-run
         cwd: test/FirstMicroservice.UnitTests
         code: |
-          NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet build
-    - script:
-        name: test-run
-        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
-        code: |
-            ls $WERCKER_CACHE_DIR/src/FirstMicroservice/publish
-            # NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet test
-deploy:
-  steps:
+          dotnet test
     - script:
         name: copy binary
+        cwd: src/FirstMicroservice
         code: |
-          cp -r $WERCKER_CACHE_DIR/src/FirstMicroservice $WERCKER_OUTPUT_DIR/app   
+          cp -r . $WERCKER_OUTPUT_DIR/app 
+deploy:
+  steps:
     - internal/docker-push:
+        cwd: $WERCKER_OUTPUT_DIR/app
         username: $USERNAME
         password: $PASSWORD
         repository: dotnetcoreservices/first-microservice
