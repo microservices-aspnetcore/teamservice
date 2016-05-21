@@ -33,6 +33,7 @@ build:
           cp -r . $WERCKER_OUTPUT_DIR/app 
           cd $WERCKER_OUTPUT_DIR/app
 test:
+  steps: 
     - script:
         name: restore
         cwd: test/FirstMicroservice.UnitTests
