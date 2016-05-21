@@ -35,11 +35,11 @@ test:
   steps: 
     - script:
         name: test-restore
-        #cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
+        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
           echo $WERCKER_CACHE_DIR
           ls $WERCKER_CACHE_DIR
-          # NUGET_PACKAGES=$WERCKER_CACHE_DIR/src/FirstMicroservice/publish dotnet restore
+          dotnet restore
     - script:
         name: test-build
         #cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
