@@ -28,26 +28,26 @@ build:
         code: |
           dotnet publish -o publish
     - script:
+        name: test-restore
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+           dotnet restore
+    - script:
+        name: test-build
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+          dotnet build
+    - script:
         name: copy binary
         code: |
           cp -r . $WERCKER_CACHE_DIR 
 test:
   steps: 
     - script:
-        name: test-restore
-        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
-        code: |
-          dotnet restore
-    - script:
-        name: test-build
-        cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
-        code: |
-          dotnet build
-    - script:
         name: test-run
         cwd: $WERCKER_CACHE_DIR/test/FirstMicroservice.UnitTests
         code: |
-          dotnet test
+          NUGET_PACKAGES=$WERCKER_CACHE_DIR/test/FirstMicroservice/publish dotnet test
 deploy:
   steps:
     - script:
