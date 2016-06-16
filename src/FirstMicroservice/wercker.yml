@@ -4,30 +4,26 @@ build:
   steps: 
     - script:
         name: restore
-        cwd: src/FirstMicroservice
         code: |
           dotnet restore
     - script:
         name: build
-        cwd: src/FirstMicroservice        
         code: |
-          dotnet build  
+          dotnet build
     - script:
         name: publish
-        cwd: src/FirstMicroservice        
         code: |
-          dotnet publish -o publish
+          dotnet publish -o publish	 
     - script:
         name: copy binary
-        cwd: src/FirstMicroservice
         code: |
           cp -r . $WERCKER_OUTPUT_DIR/app 
+          cd $WERCKER_OUTPUT_DIR/app
 deploy:
   steps:
     - internal/docker-push:
-        cwd: $WERCKER_OUTPUT_DIR/app
         username: $USERNAME
         password: $PASSWORD
         repository: dotnetcoreservices/first-microservice
         registry: https://registry.hub.docker.com
-        entrypoint: "/pipeline/source/app/run.sh"
+        entrypoint: "/pipeline/source/app/docker_entrypoint.sh"
