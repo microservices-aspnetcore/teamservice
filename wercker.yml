@@ -18,6 +18,21 @@ build:
         code: |
           dotnet publish -o publish
     - script:
+        name: test-restore
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+           dotnet restore
+    - script:
+        name: test-build
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+          dotnet build
+    - script:
+        name: test-run
+        cwd: test/FirstMicroservice.UnitTests
+        code: |
+          dotnet test
+    - script:
         name: copy binary
         cwd: src/FirstMicroservice
         code: |
