@@ -45,4 +45,4 @@ deploy:
         password: $PASSWORD
         repository: dotnetcoreservices/first-microservice
         registry: https://registry.hub.docker.com
-        entrypoint: "/pipeline/source/app/run.sh"
+        entrypoint: "/pipeline/source/app/docker_entrypoint.sh"
