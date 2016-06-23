@@ -20,7 +20,7 @@ namespace StatlerWaldorfCorp.TeamService {
 	    services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseMvc();
         }
