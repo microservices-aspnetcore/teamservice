@@ -15,7 +15,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpGet]
         	public IEnumerable<string> Get()
 		{
-			return repository.GetTeamates();
+			return repository.GetTeams();
 		}
 	}
 }
