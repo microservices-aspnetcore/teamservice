@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 
-namespace StatlerWaldorfCorp.FirstMicroservice {
+namespace StatlerWaldorfCorp.TeamService {
     public class Startup
     {
         public Startup(IHostingEnvironment env)

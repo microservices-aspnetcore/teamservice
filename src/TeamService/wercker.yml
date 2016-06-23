@@ -24,6 +24,6 @@ deploy:
     - internal/docker-push:
         username: $USERNAME
         password: $PASSWORD
-        repository: dotnetcoreservices/first-microservice
+        repository: dotnetcoreservices/teamservice
         registry: https://registry.hub.docker.com
         entrypoint: "/pipeline/source/app/docker_entrypoint.sh"

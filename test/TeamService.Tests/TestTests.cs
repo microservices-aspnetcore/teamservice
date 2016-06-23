@@ -1,7 +1,7 @@
 using Xunit;
 using System.Collections.Generic;
 
-namespace StatlerWaldorfCorp.FirstMicroservice
+namespace StatlerWaldorfCorp.TeamService
 {
     public class TestTest
     {
