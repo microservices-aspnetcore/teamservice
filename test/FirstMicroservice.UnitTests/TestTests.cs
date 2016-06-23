@@ -1,9 +1,9 @@
 using Xunit;
 using System.Collections.Generic;
 
-namespace FirstMicroservice.UnitTests
+namespace StatlerWaldorfCorp.FirstMicroservice
 {
-    public class TestTests
+    public class TestTest
     {
         [Fact]
         public void PassingTest()

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
-namespace HelloWorld
+namespace StatlerWaldorfCorp.FirstMicroservice
 {
     public class Program
     {
@@ -15,7 +15,7 @@ namespace HelloWorld
 
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseStartup<Startup>()
+                .UseStartup<StatlerWaldorfCorp.FirstMicroservice.Startup>()
                 .UseConfiguration(config)
                 .Build();
 
