@@ -4,37 +4,37 @@ build:
   steps: 
     - script:
         name: restore
-        cwd: src/FirstMicroservice
+        cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           dotnet restore
     - script:
         name: build
-        cwd: src/FirstMicroservice        
+        cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           dotnet build  
     - script:
         name: publish
-        cwd: src/FirstMicroservice        
+        cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           dotnet publish -o publish
     - script:
         name: test-restore
-        cwd: test/FirstMicroservice.UnitTests
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests
         code: |
            dotnet restore
     - script:
         name: test-build
-        cwd: test/FirstMicroservice.UnitTests
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests
         code: |
           dotnet build
     - script:
         name: test-run
-        cwd: test/FirstMicroservice.UnitTests
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests
         code: |
           dotnet test
     - script:
         name: copy binary
-        cwd: src/FirstMicroservice
+        cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           cp -r . $WERCKER_OUTPUT_DIR/app 
 deploy:

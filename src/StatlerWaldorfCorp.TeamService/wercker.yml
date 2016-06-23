@@ -5,6 +5,7 @@ build:
     - script:
         name: restore
         code: |
+          cd src/StatlerWaldorfCorp.TeamService
           dotnet restore
     - script:
         name: build
