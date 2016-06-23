@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
-namespace StatlerWaldorfCorp.FirstMicroservice
+namespace StatlerWaldorfCorp.TeamService
 {
     public class Program
     {
@@ -15,7 +15,7 @@ namespace StatlerWaldorfCorp.FirstMicroservice
 
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseStartup<StatlerWaldorfCorp.FirstMicroservice.Startup>()
+                .UseStartup<Startup>()
                 .UseConfiguration(config)
                 .Build();
 
