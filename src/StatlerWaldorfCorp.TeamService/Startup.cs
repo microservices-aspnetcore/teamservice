@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace StatlerWaldorfCorp.TeamService {
     public class Startup
     {
@@ -10,12 +13,16 @@ namespace StatlerWaldorfCorp.TeamService {
         {
         }
                 
+        public IConfigurationRoot Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+	    services.AddMvc();
+        }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.Use(async (context, next) =>
-            {
-                await context.Response.WriteAsync("Hello, world!");
-            });
+            app.UseMvc();
         }
     }   
 }
