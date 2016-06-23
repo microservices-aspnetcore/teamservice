@@ -9,11 +9,13 @@ namespace StatlerWaldorfCorp.TeamService
 	[Route("[controller]")]
 	public class TeamController
 	{
+		// TODO: Inject
+		ITeamRepository repository = new MemoryTeamRepository();
+
 		[HttpGet]
         	public IEnumerable<string> Get()
 		{
-			return new string[] { "one", "two" };
+			return repository.GetTeamates();
 		}
 	}
 }
-       
