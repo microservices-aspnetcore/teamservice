@@ -5,22 +5,31 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using StatlerWaldorfCorp.TeamService.Models;
+using System.Threading.Tasks;
 
 namespace StatlerWaldorfCorp.TeamService
 {
 	[Route("/teams")]
-	public class TeamController
+	public class TeamController : Controller
 	{
-		ITeamRepository _repository;
+		ITeamRepository repository;
 
-		public TeamController(ITeamRepository repository) {
-			_repository = repository;
+		public TeamController(ITeamRepository repo) 
+		{
+			repository = repo;
 		}
 
 		[HttpGet]
-        public IEnumerable<Team> GetAllTeams()
+        public async virtual Task<IActionResult> GetAllTeams()
 		{									
-			return _repository.GetTeams();			
+			return this.Ok(repository.GetTeams());						
+		}
+
+		[HttpPost]
+		public async virtual Task<IActionResult> CreateTeam([FromBody]Team newTeam) 
+		{
+			repository.AddTeam(newTeam);
+			return this.Ok();
 		}
 	}
 }
