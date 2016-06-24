@@ -26,7 +26,8 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpGet]
-        public async virtual Task<IActionResult> GetTeam(Guid id)
+		[Route("/teams/{id}")]
+        public async Task<IActionResult> GetTeam(Guid id)
 		{
 			Team team = repository.GetTeam(id);
 			return this.Ok(team);

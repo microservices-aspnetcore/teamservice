@@ -5,10 +5,12 @@ using System.Linq;
 namespace StatlerWaldorfCorp.TeamService.Models
 {
 	public class MemoryTeamRepository :  ITeamRepository {
-		protected ICollection<Team> _teams;
+		protected static ICollection<Team> _teams;
 
 		public MemoryTeamRepository() {
-			_teams = new List<Team>();
+			if(_teams == null) {
+				_teams = new List<Team>();
+			}
 		}
 
 		public MemoryTeamRepository(ICollection<Team> teams) {
