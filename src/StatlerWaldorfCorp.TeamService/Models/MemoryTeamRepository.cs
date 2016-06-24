@@ -19,6 +19,10 @@ namespace StatlerWaldorfCorp.TeamService.Models
 			return _teams; 
 		}
 
+		public Team GetTeam(Guid id) {
+			return _teams.Where(t => t.ID == id).First();
+		}
+
 		public void AddTeam(Team t) 
 		{
 			_teams.Add(t);

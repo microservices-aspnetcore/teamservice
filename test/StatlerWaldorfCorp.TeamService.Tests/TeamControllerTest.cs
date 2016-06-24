@@ -21,6 +21,21 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
+        public async void GetTeamRetrievesTeam() 
+        {
+            TeamController controller = new TeamController(new TestMemoryTeamRepository());
+
+            string sampleName = "sample";
+            Guid id = Guid.NewGuid();
+            Team sampleTeam = new Team(sampleName, id);
+            await controller.CreateTeam(sampleTeam);
+
+            Team retrievedTeam = (Team)(await controller.GetTeam(id) as ObjectResult).Value;
+            Assert.Equal(retrievedTeam.Name, sampleName);
+            Assert.Equal(retrievedTeam.ID, id);            
+        }
+
+        [Fact]
         public async void CreateTeamAddsTeamToList() 
         {
             TeamController controller = new TeamController(new TestMemoryTeamRepository());
@@ -49,8 +64,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             string sampleName = "sample";
             Guid id = Guid.NewGuid();
-            Team sampleTeam = new Team(sampleName);  
-            sampleTeam.ID = id;          
+            Team sampleTeam = new Team(sampleName, id);
             await controller.CreateTeam(sampleTeam);
 
             teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;

@@ -19,7 +19,7 @@ namespace StatlerWaldorfCorp.TeamService.Models
         public Team(string name, Guid id) 
         {
             this.Name = name;
-            this.ID = ID;
+            this.ID = id;
         }
 
         public override string ToString() {
