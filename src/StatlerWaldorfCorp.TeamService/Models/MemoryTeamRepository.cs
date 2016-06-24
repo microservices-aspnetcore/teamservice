@@ -5,7 +5,7 @@ using System.Linq;
 namespace StatlerWaldorfCorp.TeamService.Models
 {
 	public class MemoryTeamRepository :  ITeamRepository {
-		protected ICollection<Team> _teams;
+		protected static ICollection<Team> _teams;
 
 		public MemoryTeamRepository() {
 			_teams = new List<Team>();
@@ -20,7 +20,7 @@ namespace StatlerWaldorfCorp.TeamService.Models
 		}
 
 		public Team GetTeam(Guid id) {
-			return _teams.Where(t => t.ID == id).First();
+			return _teams.FirstOrDefault( t => t.ID == id);			
 		}
 
 		public void AddTeam(Team t) 
@@ -28,8 +28,11 @@ namespace StatlerWaldorfCorp.TeamService.Models
 			_teams.Add(t);
 		}
 
-		public void DeleteTeam(Guid id) {			
-			_teams.Remove(_teams.Where(t => t.ID == id).First());
+		public void DeleteTeam(Guid id) {
+			var q = _teams.Where(t => t.ID == id);
+			if (q.Count() > 0) {				
+				_teams.Remove(q.First());
+			}						 			
 		}
 	}
 }

@@ -28,8 +28,15 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpGet("{id}")]
         public async Task<IActionResult> GetTeam(Guid id)
 		{
-			Team team = repository.GetTeam(id);
-			return this.Ok(team);
+			Team team = repository.GetTeam(id);			
+			if (team != null) // I HATE NULLS, MUST FIXERATE THIS.			  
+			{				
+				return this.Ok(team);
+			} else 
+			{			
+				return this.NotFound();
+			}
+			
 		}		
 
 		[HttpPost]
@@ -46,8 +53,13 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpDelete("{id}")]
         public async virtual Task<IActionResult> DeleteTeam(Guid id)
 		{
-			repository.DeleteTeam(id);
-			return this.Ok(id);
+			//TODO: get-then-delete is probably inefficient. Unsuckify later.
+			if (repository.GetTeam(id) == null) {
+				return this.NotFound();
+			} else {
+				repository.DeleteTeam(id);
+				return this.Ok(id);
+			}
 		}		
 	}
 }

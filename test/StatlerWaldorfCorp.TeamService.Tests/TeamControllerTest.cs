@@ -36,6 +36,16 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
+        public async void GetNonExistentTeamReturnsNotFound() 
+        {
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
+
+            Guid id = Guid.NewGuid();
+            var result = await controller.GetTeam(id);
+            Assert.True(result is NotFoundResult);                                
+        }
+
+        [Fact]
         public async void CreateTeamAddsTeamToList() 
         {
             TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
@@ -76,6 +86,16 @@ namespace StatlerWaldorfCorp.TeamService
             teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
             sampleTeam = teams.FirstOrDefault(target => target.Name == sampleName);
             Assert.Null(sampleTeam);            
+        }
+
+        [Fact]
+        public async void DeleteNonExistentTeamReturnsNotFound() 
+        {
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
+            Guid id = Guid.NewGuid();
+
+            var result = await controller.DeleteTeam(id);
+            Assert.True(result is NotFoundResult);
         }
     }
 }
