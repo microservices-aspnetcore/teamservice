@@ -28,8 +28,12 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpPost]
 		public async virtual Task<IActionResult> CreateTeam([FromBody]Team newTeam) 
 		{
-			repository.AddTeam(newTeam);
-			return this.Ok();
+			repository.AddTeam(newTeam);			
+
+			//TODO: add test that asserts result is a 201 pointing to URL of the created team.
+			//TODO: teams need IDs
+			//TODO: return created at route to point to team details			
+			return this.Created("/teams/XXX", newTeam);
 		}
 	}
 }
