@@ -6,6 +6,7 @@ namespace StatlerWaldorfCorp.TeamService.Models
 		protected ICollection<Team> _teams;
 
 		public MemoryTeamRepository() {
+			_teams = new List<Team>();
 		}
 
 		public MemoryTeamRepository(ICollection<Team> teams) {
