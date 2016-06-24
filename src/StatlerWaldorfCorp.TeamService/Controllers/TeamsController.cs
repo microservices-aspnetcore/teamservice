@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace StatlerWaldorfCorp.TeamService
 {
-	[Route("/teams")]
-	public class TeamController : Controller
+	[Route("[controller]")]
+	public class TeamsController : Controller
 	{
 		ITeamRepository repository;
 
-		public TeamController(ITeamRepository repo) 
+		public TeamsController(ITeamRepository repo) 
 		{
 			repository = repo;
 		}
@@ -25,8 +25,7 @@ namespace StatlerWaldorfCorp.TeamService
 			return this.Ok(repository.GetTeams());
 		}
 
-		[HttpGet]
-		[Route("/teams/{id}")]
+		[HttpGet("{id}")]
         public async Task<IActionResult> GetTeam(Guid id)
 		{
 			Team team = repository.GetTeam(id);
@@ -44,8 +43,7 @@ namespace StatlerWaldorfCorp.TeamService
 			return this.Created($"/teams/{newTeam.ID}", newTeam);
 		}
 
-		[HttpDelete]
-		[Route("/teams/{id}")]		
+		[HttpDelete("{id}")]
         public async virtual Task<IActionResult> DeleteTeam(Guid id)
 		{
 			repository.DeleteTeam(id);

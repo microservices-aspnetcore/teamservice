@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace StatlerWaldorfCorp.TeamService
 {
-    public class TeamControllerTest
+    public class TeamsControllerTest
     {	    
         [Fact]
         public async void QueryTeamListReturnsCorrectTeams()
         {
-            TeamController controller = new TeamController(new TestMemoryTeamRepository());
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
             var rawTeams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
             List<Team> teams = new List<Team>(rawTeams);
             Assert.Equal(teams.Count, 2);
@@ -23,7 +23,7 @@ namespace StatlerWaldorfCorp.TeamService
         [Fact]
         public async void GetTeamRetrievesTeam() 
         {
-            TeamController controller = new TeamController(new TestMemoryTeamRepository());
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
 
             string sampleName = "sample";
             Guid id = Guid.NewGuid();
@@ -38,7 +38,7 @@ namespace StatlerWaldorfCorp.TeamService
         [Fact]
         public async void CreateTeamAddsTeamToList() 
         {
-            TeamController controller = new TeamController(new TestMemoryTeamRepository());
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
             var teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
             List<Team> original = new List<Team>(teams);
             
@@ -58,7 +58,7 @@ namespace StatlerWaldorfCorp.TeamService
         [Fact]
         public async void DeleteTeamRemovesFromList() 
         {
-            TeamController controller = new TeamController(new TestMemoryTeamRepository());
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
             var teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
             int ct = teams.Count();
 
