@@ -33,7 +33,7 @@ namespace StatlerWaldorfCorp.TeamService
 			//TODO: add test that asserts result is a 201 pointing to URL of the created team.
 			//TODO: teams need IDs
 			//TODO: return created at route to point to team details			
-			return this.Created("/teams/XXX", newTeam);
+			return this.Created($"/teams/{newTeam.ID}", newTeam);
 		}
 	}
 }

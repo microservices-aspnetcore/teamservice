@@ -28,7 +28,10 @@ namespace StatlerWaldorfCorp.TeamService
             
             Team t = new Team("sample");
             var result = await controller.CreateTeam(t);
+            //TODO: also assert that the destination URL of the new team reflects the team's GUID
+            Assert.Equal((result as ObjectResult).StatusCode, 201);
 
+            var actionResult = await controller.GetAllTeams() as ObjectResult;            
             var newTeamsRaw = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
             List<Team> newTeams = new List<Team>(newTeamsRaw);
             Assert.Equal(newTeams.Count, original.Count+1);
