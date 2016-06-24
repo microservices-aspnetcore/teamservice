@@ -3,19 +3,23 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using StatlerWaldorfCorp.TeamService.Models;
 
 namespace StatlerWaldorfCorp.TeamService
 {
 	[Route("[controller]")]
 	public class TeamController
 	{
-		// TODO: Inject
-		ITeamRepository repository = new MemoryTeamRepository();
+		ITeamRepository _repository;
+
+		public TeamController(ITeamRepository repository) {
+			_repository = repository;
+		}
 
 		[HttpGet]
         	public IEnumerable<string> Get()
 		{
-			return repository.GetTeams();
+			return _repository.GetTeams();
 		}
 	}
 }
