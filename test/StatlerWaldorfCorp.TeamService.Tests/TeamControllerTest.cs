@@ -2,6 +2,7 @@ using Xunit;
 using System.Collections.Generic;
 using StatlerWaldorfCorp.TeamService.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace StatlerWaldorfCorp.TeamService
@@ -37,6 +38,30 @@ namespace StatlerWaldorfCorp.TeamService
             Assert.Equal(newTeams.Count, original.Count+1);
             var sampleTeam = newTeams.FirstOrDefault( target => target.Name == "sample");
             Assert.NotNull(sampleTeam);            
+        }
+
+        [Fact]
+        public async void DeleteTeamRemovesFromList() 
+        {
+            TeamController controller = new TeamController(new TestMemoryTeamRepository());
+            var teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
+            int ct = teams.Count();
+
+            string sampleName = "sample";
+            Guid id = Guid.NewGuid();
+            Team sampleTeam = new Team(sampleName);  
+            sampleTeam.ID = id;          
+            await controller.CreateTeam(sampleTeam);
+
+            teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
+            sampleTeam = teams.FirstOrDefault(target => target.Name == sampleName);
+            Assert.NotNull(sampleTeam);            
+
+            await controller.DeleteTeam(id);
+
+            teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
+            sampleTeam = teams.FirstOrDefault(target => target.Name == sampleName);
+            Assert.Null(sampleTeam);            
         }
     }
 }

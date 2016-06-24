@@ -21,8 +21,8 @@ namespace StatlerWaldorfCorp.TeamService
 
 		[HttpGet]
         public async virtual Task<IActionResult> GetAllTeams()
-		{									
-			return this.Ok(repository.GetTeams());						
+		{
+			return this.Ok(repository.GetTeams());
 		}
 
 		[HttpPost]
@@ -35,5 +35,12 @@ namespace StatlerWaldorfCorp.TeamService
 			//TODO: return created at route to point to team details			
 			return this.Created($"/teams/{newTeam.ID}", newTeam);
 		}
+
+		[HttpDelete]
+        public async virtual Task<IActionResult> DeleteTeam(Guid id)
+		{
+			repository.DeleteTeam(id);
+			return this.Ok(id);
+		}		
 	}
 }

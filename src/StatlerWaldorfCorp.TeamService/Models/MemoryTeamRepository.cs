@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StatlerWaldorfCorp.TeamService.Models
 {
@@ -20,6 +22,10 @@ namespace StatlerWaldorfCorp.TeamService.Models
 		public void AddTeam(Team t) 
 		{
 			_teams.Add(t);
+		}
+
+		public void DeleteTeam(Guid id) {			
+			_teams.Remove(_teams.Where(t => t.ID == id).First());
 		}
 	}
 }
