@@ -18,7 +18,7 @@ namespace StatlerWaldorfCorp.TeamService {
         public void ConfigureServices(IServiceCollection services)
         {
 	        services.AddMvc();
-            services.AddScoped<ITeamRepository, MemoryTeamRepository>();
+            services.AddSingleton<ITeamRepository, MemoryTeamRepository>();
         }
 
         public void Configure(IApplicationBuilder app)
