@@ -28,7 +28,8 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpGet]
         public async virtual Task<IActionResult> GetTeam(Guid id)
 		{
-			return this.Ok(repository.GetTeam(id));
+			Team team = repository.GetTeam(id);
+			return this.Ok(team);
 		}		
 
 		[HttpPost]
