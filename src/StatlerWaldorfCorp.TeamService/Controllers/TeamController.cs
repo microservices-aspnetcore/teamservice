@@ -45,6 +45,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpDelete]
+		[Route("/teams/{id}")]		
         public async virtual Task<IActionResult> DeleteTeam(Guid id)
 		{
 			repository.DeleteTeam(id);
