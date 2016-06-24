@@ -6,12 +6,12 @@ namespace StatlerWaldorfCorp.TeamService
 {
     public class TeamControllerTest
     {
-	    TeamController service = new TeamController(new TestMemoryTeamRepository());
+	    TeamController controller = new TeamController(new TestMemoryTeamRepository());
 
         [Fact]
-        public void PassingTest()
+        public void QueryTeamListReturnsCorrectTeams()
         {
-            List<Team> teams = new List<Team>(service.Get());
+            List<Team> teams = new List<Team>(controller.GetAllTeams());
             Assert.Equal(teams[0].Name, "one");
             Assert.Equal(teams[1].Name, "two");            
         }

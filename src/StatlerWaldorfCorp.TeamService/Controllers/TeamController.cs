@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using StatlerWaldorfCorp.TeamService.Models;
 
 namespace StatlerWaldorfCorp.TeamService
 {
-	[Route("[controller]")]
+	[Route("/teams")]
 	public class TeamController
 	{
 		ITeamRepository _repository;
@@ -17,9 +18,9 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpGet]
-        public IEnumerable<Team> Get()
-		{
-			return _repository.GetTeams();
+        public IEnumerable<Team> GetAllTeams()
+		{									
+			return _repository.GetTeams();			
 		}
 	}
 }
