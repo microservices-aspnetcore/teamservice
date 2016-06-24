@@ -11,7 +11,9 @@ namespace StatlerWaldorfCorp.TeamService
         [Fact]
         public void PassingTest()
         {
-            Assert.Equal(service.Get(), new string[] { "one", "two" });
+            List<Team> teams = new List<Team>(service.Get());
+            Assert.Equal(teams[0].Name, "one");
+            Assert.Equal(teams[1].Name, "two");            
         }
     }
 }
