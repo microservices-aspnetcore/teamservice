@@ -22,7 +22,7 @@ namespace StatlerWaldorfCorp.TeamService.Models
 		}
 
 		public Team GetTeam(Guid id) {
-			return _teams.FirstOrDefault( t => t.ID == id);			
+			return _teams.FirstOrDefault(t => t.ID == id);			
 		}
 
 		public void AddTeam(Team t) 
