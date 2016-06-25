@@ -25,6 +25,12 @@ namespace StatlerWaldorfCorp.TeamService.Models
 			return _teams.FirstOrDefault(t => t.ID == id);			
 		}
 
+		public void UpdateTeam(Team t) 
+		{
+			this.DeleteTeam(t.ID);
+			this.AddTeam(t);
+		}
+
 		public void AddTeam(Team t) 
 		{
 			_teams.Add(t);

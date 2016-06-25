@@ -50,6 +50,14 @@ namespace StatlerWaldorfCorp.TeamService
 			return this.Created($"/teams/{newTeam.ID}", newTeam);
 		}
 
+		[HttpPut]
+		public async virtual Task<IActionResult> UpdateTeam([FromBody]Team team) 
+		{
+			repository.UpdateTeam(team);			
+
+			return this.Ok(team);
+		}
+
 		[HttpDelete("{id}")]
         public async virtual Task<IActionResult> DeleteTeam(Guid id)
 		{
