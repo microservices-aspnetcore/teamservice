@@ -25,22 +25,33 @@ namespace StatlerWaldorfCorp.TeamService.Models
 			return _teams.FirstOrDefault(t => t.ID == id);			
 		}
 
-		public void UpdateTeam(Team t) 
+		public Team UpdateTeam(Team t) 
 		{
-			this.DeleteTeam(t.ID);
-			this.AddTeam(t);
+			Team team = this.DeleteTeam(t.ID);
+	
+			if(team != null) {
+				team = this.AddTeam(t);
+			}
+
+			return team;
 		}
 
-		public void AddTeam(Team t) 
+		public Team AddTeam(Team team) 
 		{
-			_teams.Add(t);
+			_teams.Add(team);
+			return team;
 		}
 
-		public void DeleteTeam(Guid id) {
+		public Team DeleteTeam(Guid id) {	
 			var q = _teams.Where(t => t.ID == id);
+			Team team = null;
+
 			if (q.Count() > 0) {				
-				_teams.Remove(q.First());
-			}						 			
+				team = q.First();
+				_teams.Remove(team);
+			}							
+
+			return team; 			
 		}
 	}
 }

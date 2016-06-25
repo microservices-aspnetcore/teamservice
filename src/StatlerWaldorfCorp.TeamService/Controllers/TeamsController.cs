@@ -32,11 +32,9 @@ namespace StatlerWaldorfCorp.TeamService
 			if (team != null) // I HATE NULLS, MUST FIXERATE THIS.			  
 			{				
 				return this.Ok(team);
-			} else 
-			{			
+			} else {
 				return this.NotFound();
-			}
-			
+			}			
 		}		
 
 		[HttpPost]
@@ -53,21 +51,27 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpPut]
 		public async virtual Task<IActionResult> UpdateTeam([FromBody]Team team) 
 		{
-			repository.UpdateTeam(team);			
+			if(repository.UpdateTeam(team) == null) {
+				Console.WriteLine("NOT FOUND");
+				return this.NotFound();
+			} else {
+				Console.WriteLine("OK");
 
-			return this.Ok(team);
+				return this.Ok(team);
+			}
+
 		}
 
 		[HttpDelete("{id}")]
         public async virtual Task<IActionResult> DeleteTeam(Guid id)
 		{
-			//TODO: get-then-delete is probably inefficient. Unsuckify later.
-			if (repository.GetTeam(id) == null) {
+			Team team = repository.DeleteTeam(id);
+
+			if (team == null) {
 				return this.NotFound();
-			} else {
-				repository.DeleteTeam(id);
-				return this.Ok(id);
+			} else {				
+				return this.Ok(team.ID);
 			}
-		}		
+		}
 	}
 }
