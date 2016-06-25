@@ -48,9 +48,11 @@ namespace StatlerWaldorfCorp.TeamService
 			return this.Created($"/teams/{newTeam.ID}", newTeam);
 		}
 
-		[HttpPut]
-		public async virtual Task<IActionResult> UpdateTeam([FromBody]Team team) 
+		[HttpPut("{id}")]
+		public async virtual Task<IActionResult> UpdateTeam([FromBody]Team team, Guid id) 
 		{
+			team.ID = id;
+						
 			if(repository.UpdateTeam(team) == null) {
 				Console.WriteLine("NOT FOUND");
 				return this.NotFound();
