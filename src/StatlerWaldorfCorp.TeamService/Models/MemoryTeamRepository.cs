@@ -8,7 +8,9 @@ namespace StatlerWaldorfCorp.TeamService.Models
 		protected static ICollection<Team> _teams;
 
 		public MemoryTeamRepository() {
-			_teams = new List<Team>();
+			if(_teams == null) {
+				_teams = new List<Team>();
+			}
 		}
 
 		public MemoryTeamRepository(ICollection<Team> teams) {

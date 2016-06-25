@@ -42,6 +42,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpPost]
 		public async virtual Task<IActionResult> CreateTeam([FromBody]Team newTeam) 
 		{
+			newTeam.ID = Guid.NewGuid();
 			repository.AddTeam(newTeam);			
 
 			//TODO: add test that asserts result is a 201 pointing to URL of the created team.
