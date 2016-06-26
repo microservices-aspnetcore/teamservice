@@ -66,6 +66,46 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
+        public async void UpdateTeamModifiesTeamToList() 
+        {
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
+            var teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
+            List<Team> original = new List<Team>(teams);
+            
+            Guid id = Guid.NewGuid();
+            Team t = new Team("sample", id);
+            var result = await controller.CreateTeam(t);
+
+            Team newTeam = new Team("sample2", id);
+            controller.UpdateTeam(newTeam, id);
+
+            var newTeamsRaw = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
+            List<Team> newTeams = new List<Team>(newTeamsRaw);
+            var sampleTeam = newTeams.FirstOrDefault( target => target.Name == "sample");
+            Assert.Null(sampleTeam);
+
+            Team retrievedTeam = (Team)(await controller.GetTeam(id) as ObjectResult).Value;
+            Assert.Equal(retrievedTeam.Name, "sample2");
+        }        
+
+        [Fact]
+        public async void UpdateNonExistentTeamReturnsNotFound() 
+        {
+            TeamsController controller = new TeamsController(new TestMemoryTeamRepository());
+            var teams = (IEnumerable<Team>)(await controller.GetAllTeams() as ObjectResult).Value;
+            List<Team> original = new List<Team>(teams);
+            
+            Team someTeam = new Team("Some Team", Guid.NewGuid());
+            await controller.CreateTeam(someTeam);
+
+            Guid newTeamId = Guid.NewGuid();
+            Team newTeam = new Team("New Team", newTeamId);
+            var result = await controller.UpdateTeam(newTeam, newTeamId);
+
+            Assert.True(result is NotFoundResult);
+        }
+
+        [Fact]
         public async void DeleteTeamRemovesFromList() 
         {
             TeamsController controller = new TeamsController(new TestMemoryTeamRepository());

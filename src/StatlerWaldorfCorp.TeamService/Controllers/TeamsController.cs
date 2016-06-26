@@ -54,14 +54,10 @@ namespace StatlerWaldorfCorp.TeamService
 			team.ID = id;
 						
 			if(repository.UpdateTeam(team) == null) {
-				Console.WriteLine("NOT FOUND");
 				return this.NotFound();
 			} else {
-				Console.WriteLine("OK");
-
 				return this.Ok(team);
 			}
-
 		}
 
 		[HttpDelete("{id}")]
