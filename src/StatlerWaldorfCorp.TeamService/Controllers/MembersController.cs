@@ -25,8 +25,8 @@ namespace StatlerWaldorfCorp.TeamService
 		{
 			Team team = repository.GetTeam(teamID);
             team.Members.Add(newMember);
-			var member = new {TeamID = team.ID, MemberID = newMember.ID};
-			return Created($"/teams/{member.TeamID}/[controller]/{member.MemberID}", member);
+			var teamMember = new {TeamID = team.ID, MemberID = newMember.ID};
+			return Created($"/teams/{teamMember.TeamID}/[controller]/{teamMember.MemberID}", teamMember);
 		}        
     }
 }
