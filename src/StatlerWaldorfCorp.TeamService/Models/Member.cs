@@ -7,13 +7,21 @@ namespace StatlerWaldorfCorp.TeamService.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public Member(Guid id) {
+        public Member() {
+
+        }
+
+        public Member(Guid id) : this() {
             this.ID = id;
         }
 
         public Member(string firstName, string lastName, Guid id) : this(id) {
             this.FirstName = firstName;
             this.LastName = lastName;
+        }        
+
+        public override string ToString() {
+            return this.LastName;
         }        
     }
 }
