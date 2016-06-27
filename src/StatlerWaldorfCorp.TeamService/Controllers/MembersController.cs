@@ -18,14 +18,19 @@ namespace StatlerWaldorfCorp.TeamService
 		{
 			repository = repo;
 		}
-        
+
 		[HttpPost]
 		public async virtual Task<IActionResult> CreateMember([FromBody]Member newMember, Guid teamID) 
 		{
 			Team team = repository.GetTeam(teamID);
-            team.Members.Add(newMember);
-			var teamMember = new {TeamID = team.ID, MemberID = newMember.ID};
-			return Created($"/teams/{teamMember.TeamID}/[controller]/{teamMember.MemberID}", teamMember);
+			
+			if(team == null) {
+				return this.NotFound();
+			} else {
+				team.Members.Add(newMember);
+				var teamMember = new {TeamID = team.ID, MemberID = newMember.ID};
+				return this.Created($"/teams/{teamMember.TeamID}/[controller]/{teamMember.MemberID}", teamMember);
+			}
 		}
     }
 }
