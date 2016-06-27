@@ -8,7 +8,6 @@ namespace StatlerWaldorfCorp.TeamService.Models
         public string LastName { get; set; }
 
         public Member() {
-
         }
 
         public Member(Guid id) : this() {
