@@ -21,11 +21,25 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid newMemberId = Guid.NewGuid();
             Member newMember = new Member(newMemberId);
-
             await controller.CreateMember(newMember, teamId);
 
             team = repository.GetTeam(teamId);
             Assert.True(team.Members.Contains(newMember));
         }        
+
+        [Fact]
+        public async void CreateMembertoNonexistantTeamReturnsNotFound() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            Guid teamId = Guid.NewGuid();
+
+            Guid newMemberId = Guid.NewGuid();
+            Member newMember = new Member(newMemberId);
+            var result = await controller.CreateMember(newMember, teamId);
+
+            Assert.True(result is NotFoundResult);
+        }
     }
 }
