@@ -65,6 +65,7 @@ namespace StatlerWaldorfCorp.TeamService
             updatedMember.LastName = "Jones";            
             await controller.UpdateMember(updatedMember, teamId, memberId);
 
+ 
  //           team = repository.GetTeam(teamId);
  //           Member testMember = team.Members.Where(m => m.ID == memberId).First();
  //           Assert.Equal(testMember.FirstName, "Bob");
