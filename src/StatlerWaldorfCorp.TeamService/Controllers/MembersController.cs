@@ -28,7 +28,7 @@ namespace StatlerWaldorfCorp.TeamService
 			if(team == null) {
 				return this.NotFound();
 			} else {
-				var q = team.Members.Where(m => m.ID == updatedMember.ID);
+				var q = team.Members.Where(m => m.ID == memberId);
 
 				if(q.Count() < 1) {
 					return this.NotFound();

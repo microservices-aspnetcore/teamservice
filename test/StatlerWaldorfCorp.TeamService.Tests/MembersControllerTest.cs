@@ -50,7 +50,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestController", teamId);
-            repository.AddTeam(team);        
+            var debugTeam = repository.AddTeam(team);        
 
             Guid memberId = Guid.NewGuid();
             Member newMember = new Member(memberId);
@@ -58,10 +58,12 @@ namespace StatlerWaldorfCorp.TeamService
             newMember.LastName = "Smith";
             await controller.CreateMember(newMember, teamId);
 
+            team = repository.GetTeam(teamId);
+
             Member updatedMember = new Member(memberId);
             updatedMember.FirstName = "Bob";
             updatedMember.LastName = "Jones";            
-            await controller.UpdateMember(updatedMember, teamId, memberId);            
+            await controller.UpdateMember(updatedMember, teamId, memberId);
 
             team = repository.GetTeam(teamId);
             Member testMember = team.Members.Where(m => m.ID == memberId).First();
