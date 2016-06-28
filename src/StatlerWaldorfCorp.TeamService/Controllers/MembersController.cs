@@ -19,6 +19,25 @@ namespace StatlerWaldorfCorp.TeamService
 			repository = repo;
 		}
 
+		[HttpGet]
+		[Route("/teams/{teamId}/[controller]/{memberId}")]		
+		public async virtual Task<IActionResult> GetMember(Guid teamID, Guid memberId) 
+		{
+			Team team = repository.GetTeam(teamID);
+			
+			if(team == null) {
+				return this.NotFound();
+			} else {
+				var q = team.Members.Where(m => m.ID == memberId);
+
+				if(q.Count() < 1) {
+					return this.NotFound();
+				} else {
+					return this.Ok(q.First());
+				}				
+			}			
+		}
+
 		[HttpPut]
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
 		public async virtual Task<IActionResult> UpdateMember([FromBody]Member updatedMember, Guid teamID, Guid memberId) 
