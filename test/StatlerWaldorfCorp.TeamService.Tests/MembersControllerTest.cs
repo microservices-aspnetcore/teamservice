@@ -65,6 +65,30 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
+        public async void GetNonExistantTeamReturnsNotFound() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            var result = await controller.GetMember(Guid.NewGuid(), Guid.NewGuid());
+            Assert.True(result is NotFoundResult);
+        }
+
+        [Fact]
+        public async void GetNonExistantMemberReturnsNotFound() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            Guid teamId = Guid.NewGuid();
+            Team team = new Team("TestTeam", teamId);
+            var debugTeam = repository.AddTeam(team);        
+
+            var result = await controller.GetMember(teamId, Guid.NewGuid());
+            Assert.True(result is NotFoundResult);
+        }
+
+        [Fact]
         public async void UpdateMemberOverwrites() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
