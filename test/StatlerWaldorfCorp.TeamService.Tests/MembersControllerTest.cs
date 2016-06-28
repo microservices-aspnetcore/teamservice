@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 
+[assembly:CollectionBehavior(MaxParallelThreads = 1)]
+
 namespace StatlerWaldorfCorp.TeamService
 {
     public class MembersControllerTest
@@ -49,7 +51,7 @@ namespace StatlerWaldorfCorp.TeamService
             MembersController controller = new MembersController(repository);
 
             Guid teamId = Guid.NewGuid();
-            Team team = new Team("TestController", teamId);
+            Team team = new Team("TestTeam", teamId);
             var debugTeam = repository.AddTeam(team);        
 
             Guid memberId = Guid.NewGuid();
@@ -58,18 +60,18 @@ namespace StatlerWaldorfCorp.TeamService
             newMember.LastName = "Smith";
             await controller.CreateMember(newMember, teamId);
 
-            team = repository.GetTeam(teamId);
-
+	    team = repository.GetTeam(teamId);
+	    
             Member updatedMember = new Member(memberId);
             updatedMember.FirstName = "Bob";
             updatedMember.LastName = "Jones";            
             await controller.UpdateMember(updatedMember, teamId, memberId);
-
  
- //           team = repository.GetTeam(teamId);
- //           Member testMember = team.Members.Where(m => m.ID == memberId).First();
- //           Assert.Equal(testMember.FirstName, "Bob");
- //           Assert.Equal(testMember.LastName, "Jones");            
+            team = repository.GetTeam(teamId);
+            Member testMember = team.Members.Where(m => m.ID == memberId).First();
+	    
+            Assert.Equal(testMember.FirstName, "Bob");
+            Assert.Equal(testMember.LastName, "Jones");            
         }           
 
         [Fact]
