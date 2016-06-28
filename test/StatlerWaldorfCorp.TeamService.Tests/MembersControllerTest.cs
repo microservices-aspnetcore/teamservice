@@ -45,6 +45,26 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
+        public async void GetExistingMemberReturnsMember() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            Guid teamId = Guid.NewGuid();
+            Team team = new Team("TestTeam", teamId);
+            var debugTeam = repository.AddTeam(team);        
+
+            Guid memberId = Guid.NewGuid();
+            Member newMember = new Member(memberId);
+            newMember.FirstName = "Jim";
+            newMember.LastName = "Smith";
+            await controller.CreateMember(newMember, teamId);
+
+            Member member = (Member)(await controller.GetMember(teamId, memberId) as ObjectResult).Value;
+            Assert.Equal(member.ID, newMember.ID);
+        }
+
+        [Fact]
         public async void UpdateMemberOverwrites() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
@@ -60,7 +80,7 @@ namespace StatlerWaldorfCorp.TeamService
             newMember.LastName = "Smith";
             await controller.CreateMember(newMember, teamId);
 
-	    team = repository.GetTeam(teamId);
+	        team = repository.GetTeam(teamId);
 	    
             Member updatedMember = new Member(memberId);
             updatedMember.FirstName = "Bob";
