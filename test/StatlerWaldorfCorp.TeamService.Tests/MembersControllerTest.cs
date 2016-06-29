@@ -65,6 +65,58 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
+        public async void GetMembersReturnsMembers() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            Guid teamId = Guid.NewGuid();
+            Team team = new Team("TestTeam", teamId);
+            var debugTeam = repository.AddTeam(team);        
+
+            Guid firstMemberId = Guid.NewGuid();
+            Member newMember = new Member(firstMemberId);
+            newMember.FirstName = "Jim";
+            newMember.LastName = "Smith";
+            await controller.CreateMember(newMember, teamId);
+
+            Guid secondMemberId = Guid.NewGuid();
+            newMember = new Member(secondMemberId);
+            newMember.FirstName = "John";
+            newMember.LastName = "Doe";
+            await controller.CreateMember(newMember, teamId);            
+
+            ICollection<Member> members = (ICollection<Member>)(await controller.GetMembers(teamId) as ObjectResult).Value;
+            Assert.Equal(2, members.Count());
+            Assert.NotNull(members.Where(m => m.ID == firstMemberId).First().ID);            
+            Assert.NotNull(members.Where(m => m.ID == secondMemberId).First().ID);                        
+        }
+
+        [Fact]
+        public async void GetMembersForNewTeamIsEmpty() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            Guid teamId = Guid.NewGuid();
+            Team team = new Team("TestTeam", teamId);
+            var debugTeam = repository.AddTeam(team);        
+
+            ICollection<Member> members = (ICollection<Member>)(await controller.GetMembers(teamId) as ObjectResult).Value;
+            Assert.Empty(members);
+        }     
+
+        [Fact]
+        public async void GetMembersForNonExistantTeamReturnNotFound() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            var result = await controller.GetMembers(Guid.NewGuid());
+            Assert.True(result is NotFoundResult);
+        }           
+
+        [Fact]
         public async void GetNonExistantTeamReturnsNotFound() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();

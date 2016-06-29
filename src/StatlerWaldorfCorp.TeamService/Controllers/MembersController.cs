@@ -20,6 +20,20 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpGet]
+		[Route("/teams/{teamId}/[controller]/members")]		
+		public async virtual Task<IActionResult> GetMembers(Guid teamID) 
+		{
+			Team team = repository.GetTeam(teamID);
+			
+			if(team == null) {
+				return this.NotFound();
+			} else {
+				return this.Ok(team.Members);
+			}			
+		}
+		
+
+		[HttpGet]
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
 		public async virtual Task<IActionResult> GetMember(Guid teamID, Guid memberId) 
 		{
