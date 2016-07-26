@@ -17,11 +17,11 @@ build:
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           dotnet publish -o publish
-    - script:
-        name: test-restore
-        cwd: test/StatlerWaldorfCorp.TeamService.Tests
-        code: |
-           dotnet restore
+#    - script:
+#        name: test-restore
+#        cwd: test/StatlerWaldorfCorp.TeamService.Tests
+#        code: |
+#           dotnet restore
 #    - script:
 #        name: test-build
 #        cwd: test/StatlerWaldorfCorp.TeamService.Tests
