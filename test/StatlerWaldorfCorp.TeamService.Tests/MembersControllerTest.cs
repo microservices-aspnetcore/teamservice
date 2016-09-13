@@ -62,7 +62,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Member member = (Member)(await controller.GetMember(teamId, memberId) as ObjectResult).Value;
             Assert.Equal(member.ID, newMember.ID);
-        }
+        }   
 
         [Fact]
         public async void GetMembersReturnsMembers() 
@@ -191,6 +191,29 @@ namespace StatlerWaldorfCorp.TeamService
             var result = await controller.UpdateMember(updatedMember, teamId, nonMatchedGuid);            
 
             Assert.True(result is NotFoundResult);
-        }                   
+        }         
+
+#region "location" 
+        [Fact]
+        public async void GetNewMemberReturnsMemberWithEmtpyLastLocation() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MembersController controller = new MembersController(repository);
+
+            Guid teamId = Guid.NewGuid();
+            Team team = new Team("TestTeam", teamId);
+            var debugTeam = repository.AddTeam(team);        
+
+            Guid memberId = Guid.NewGuid();
+            Member newMember = new Member(memberId);
+            newMember.FirstName = "Jim";
+            newMember.LastName = "Smith";
+            await controller.CreateMember(newMember, teamId);
+
+            LocatedMember member = (LocatedMember)(await controller.GetMember(teamId, memberId) as ObjectResult).Value;
+            Assert.Equal(member.ID, newMember.ID);
+            Assert.Null(member.LastLocation);
+        }
+#endregion
     }
 }
