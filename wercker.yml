@@ -1,4 +1,4 @@
-box: dotnetcoreservices/dotnet:latest
+box: microsoft/dotnet:1.0.0-preview2-sdk
 no-response-timeout: 10
 build:
   steps: 
@@ -17,21 +17,21 @@ build:
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           dotnet publish -o publish
-#    - script:
-#        name: test-restore
-#        cwd: test/StatlerWaldorfCorp.TeamService.Tests
-#        code: |
-#           dotnet restore
-#    - script:
-#        name: test-build
-#        cwd: test/StatlerWaldorfCorp.TeamService.Tests
-#        code: |
-#          dotnet build
-#    - script:
-#        name: test-run
-#        cwd: test/StatlerWaldorfCorp.TeamService.Tests
-#        code: |
-#          dotnet test
+    - script:
+        name: test-restore
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests
+        code: |
+           dotnet restore
+    - script:
+        name: test-build
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests
+        code: |
+          dotnet build
+    - script:
+        name: test-run
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests
+        code: |
+          dotnet test
     - script:
         name: copy binary
         cwd: src/StatlerWaldorfCorp.TeamService
