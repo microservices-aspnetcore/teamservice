@@ -1,4 +1,4 @@
-box: dotnetcoreservices/dotnet:latest
+box: microsoft/dotnet:1.0.0-preview2-sdk
 no-response-timeout: 10
 build:
   steps: 
