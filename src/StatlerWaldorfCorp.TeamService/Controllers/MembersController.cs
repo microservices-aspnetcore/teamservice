@@ -6,17 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using StatlerWaldorfCorp.TeamService.Models;
 using System.Threading.Tasks;
+using StatlerWaldorfCorp.TeamService.LocationClient;
 
 namespace StatlerWaldorfCorp.TeamService
 {
 	[Route("/teams/{teamId}/[controller]")]
 	public class MembersController : Controller
 	{
-		ITeamRepository repository;
+		private ITeamRepository repository;
+		private ILocationClient locationClient;
 
-		public MembersController(ITeamRepository repo) 
+		public MembersController(ITeamRepository repository, ILocationClient locationClient) 
 		{
-			repository = repo;
+			this.repository = repository;
+			this.locationClient = locationClient;
 		}
 
 		[HttpGet]
@@ -30,7 +33,6 @@ namespace StatlerWaldorfCorp.TeamService
 				return this.Ok(team.Members);
 			}			
 		}
-		
 
 		[HttpGet]
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
@@ -46,9 +48,16 @@ namespace StatlerWaldorfCorp.TeamService
 				if(q.Count() < 1) {
 					return this.NotFound();
 				} else {
-					return this.Ok(q.First());
-				}				
-			}			
+					Member member = (Member)q.First();
+
+					return this.Ok(new LocatedMember {
+						ID = member.ID,
+						FirstName = member.FirstName,
+						LastName = member.LastName,
+						LastLocation = this.locationClient.GetLatestForMember(member.ID)
+					});
+				}
+			}
 		}
 
 		[HttpPut]

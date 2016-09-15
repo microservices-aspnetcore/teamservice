@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StatlerWaldorfCorp.TeamService.Models;
+using StatlerWaldorfCorp.TeamService.LocationClient;
 
 namespace StatlerWaldorfCorp.TeamService {
     public class Startup
@@ -19,6 +20,7 @@ namespace StatlerWaldorfCorp.TeamService {
         {
 	        services.AddMvc();
             services.AddScoped<ITeamRepository, MemoryTeamRepository>();
+            services.AddScoped<ILocationClient, LocationClient.LocationClient>();
         }
 
         public void Configure(IApplicationBuilder app)
