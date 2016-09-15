@@ -2,6 +2,7 @@ using System;
 using StatlerWaldorfCorp.TeamService.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace StatlerWaldorfCorp.TeamService.LocationClient
 {
@@ -9,7 +10,7 @@ namespace StatlerWaldorfCorp.TeamService.LocationClient
     {
         public Dictionary<Guid, SortedList<long, LocationRecord>> MemberLocationHistory {get; set;}            
             
-        public LocationRecord AddLocation(Guid memberId, LocationRecord locationRecord) 
+        public async Task<LocationRecord> AddLocation(Guid memberId, LocationRecord locationRecord) 
         {
             if(!MemberLocationHistory.ContainsKey(memberId))
             {
@@ -26,7 +27,7 @@ namespace StatlerWaldorfCorp.TeamService.LocationClient
             this.MemberLocationHistory = new Dictionary<Guid, SortedList<long, LocationRecord>>();
         }
 
-        public LocationRecord GetLatestForMember(Guid memberId) 
+        public async Task<LocationRecord> GetLatestForMember(Guid memberId) 
         {
             if(MemberLocationHistory.ContainsKey(memberId)) 
             {

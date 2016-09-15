@@ -54,7 +54,7 @@ namespace StatlerWaldorfCorp.TeamService
 						ID = member.ID,
 						FirstName = member.FirstName,
 						LastName = member.LastName,
-						LastLocation = this.locationClient.GetLatestForMember(member.ID)
+						LastLocation = await this.locationClient.GetLatestForMember(member.ID)
 					});
 				}
 			}

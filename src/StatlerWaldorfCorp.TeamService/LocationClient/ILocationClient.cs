@@ -1,11 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using StatlerWaldorfCorp.TeamService.Models;
 
 namespace StatlerWaldorfCorp.TeamService.LocationClient
 {
     public interface ILocationClient
     {
-        LocationRecord GetLatestForMember(Guid memberId);
-        LocationRecord AddLocation(Guid memberId, LocationRecord locationRecord);
+        Task<LocationRecord> GetLatestForMember(Guid memberId);
+        Task<LocationRecord> AddLocation(Guid memberId, LocationRecord locationRecord);
     }
 }

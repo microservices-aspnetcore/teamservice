@@ -20,12 +20,12 @@ namespace StatlerWaldorfCorp.TeamService {
         {
 	        services.AddMvc();
             services.AddScoped<ITeamRepository, MemoryTeamRepository>();
-            services.AddScoped<ILocationClient, LocationClient.LocationClient>();
+            services.AddScoped<ILocationClient, LocationClient.HttpLocationClient>();
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.UseMvc();
         }
-    }   
+    }
 }
