@@ -233,11 +233,18 @@ namespace StatlerWaldorfCorp.TeamService
             newMember.LastName = "Smith";
             await controller.CreateMember(newMember, teamId);
 
-            locationClient.AddLocation(memberId, new LocationRecord());
+            locationClient.AddLocation(memberId, new LocationRecord() {
+                Timestamp = 1, Altitude = 123.45f});
+            locationClient.AddLocation(memberId, new LocationRecord() {
+                Timestamp = 3, Altitude = 123.47f});
+            locationClient.AddLocation(memberId, new LocationRecord() {
+                Timestamp = 2, Altitude = 123.46f});
+            
             LocatedMember member = (LocatedMember)(await controller.GetMember(teamId, memberId) as ObjectResult).Value;
 
             Assert.Equal(member.ID, newMember.ID);
             Assert.NotNull(member.LastLocation);
+            Assert.Equal(123.47f, member.LastLocation.Altitude);            
         }        
 #endregion
     }
