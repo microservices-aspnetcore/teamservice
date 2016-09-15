@@ -196,6 +196,29 @@ namespace StatlerWaldorfCorp.TeamService
 
 #region "location" 
         [Fact]
+        public async void AddsLocation() 
+        {
+            ITeamRepository repository = new TestMemoryTeamRepository();
+            MemoryLocationClient locationClient = new MemoryLocationClient();
+            MembersController controller = new MembersController(repository, locationClient);
+
+            Guid teamId = Guid.NewGuid();
+            Team team = new Team("TestTeam", teamId);
+            var debugTeam = repository.AddTeam(team);        
+
+            Guid memberId = Guid.NewGuid();
+            Member newMember = new Member(memberId);
+            newMember.FirstName = "Jim";
+            newMember.LastName = "Smith";
+            await controller.CreateMember(newMember, teamId);
+
+            locationClient.AddLocation(memberId, new LocationRecord() {
+                Timestamp = 1, Altitude = 123.45f});
+            
+            Assert.True(locationClient.MemberLocationHistory.ContainsKey(memberId));
+        }
+
+        [Fact]
         public async void GetNewMemberReturnsMemberWithEmtpyLastLocation() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
