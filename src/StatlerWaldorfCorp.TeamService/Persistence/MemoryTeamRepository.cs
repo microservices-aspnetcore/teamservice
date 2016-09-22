@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using StatlerWaldorfCorp.TeamService;
+using StatlerWaldorfCorp.TeamService.Models;
 
-namespace StatlerWaldorfCorp.TeamService.Models
+namespace StatlerWaldorfCorp.TeamService.Persistence
 {
 	public class MemoryTeamRepository :  ITeamRepository {
 		protected static ICollection<Team> _teams;
