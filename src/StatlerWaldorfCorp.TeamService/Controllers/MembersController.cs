@@ -20,7 +20,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpGet]
-		public async virtual Task<IActionResult> GetMembers(Guid teamID) 
+		public virtual IActionResult GetMembers(Guid teamID) 
 		{
 			Team team = repository.GetTeam(teamID);
 			
@@ -34,7 +34,7 @@ namespace StatlerWaldorfCorp.TeamService
 
 		[HttpGet]
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
-		public async virtual Task<IActionResult> GetMember(Guid teamID, Guid memberId) 
+		public virtual IActionResult GetMember(Guid teamID, Guid memberId) 
 		{
 			Team team = repository.GetTeam(teamID);
 			
@@ -53,7 +53,7 @@ namespace StatlerWaldorfCorp.TeamService
 
 		[HttpPut]
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
-		public async virtual Task<IActionResult> UpdateMember([FromBody]Member updatedMember, Guid teamID, Guid memberId) 
+		public virtual IActionResult UpdateMember([FromBody]Member updatedMember, Guid teamID, Guid memberId) 
 		{
 			Team team = repository.GetTeam(teamID);
 			
@@ -73,7 +73,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpPost]
-		public async virtual Task<IActionResult> CreateMember([FromBody]Member newMember, Guid teamID) 
+		public virtual IActionResult CreateMember([FromBody]Member newMember, Guid teamID) 
 		{
 			Team team = repository.GetTeam(teamID);
 			
