@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StatlerWaldorfCorp.TeamService.Models;
 using StatlerWaldorfCorp.TeamService.LocationClient;
+using StatlerWaldorfCorp.TeamService.Persistence;
 
 namespace StatlerWaldorfCorp.TeamService {
     public class Startup
