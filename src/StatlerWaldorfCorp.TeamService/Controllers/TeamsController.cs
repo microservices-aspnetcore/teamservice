@@ -20,13 +20,13 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpGet]
-        public async virtual Task<IActionResult> GetAllTeams()
+        public virtual IActionResult GetAllTeams()
 		{
 			return this.Ok(repository.GetTeams());
 		}
 
 		[HttpGet("{id}")]
-        public async Task<IActionResult> GetTeam(Guid id)
+        public IActionResult GetTeam(Guid id)
 		{
 			Team team = repository.GetTeam(id);			
 			if (team != null) // I HATE NULLS, MUST FIXERATE THIS.			  
@@ -38,7 +38,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}		
 
 		[HttpPost]
-		public async virtual Task<IActionResult> CreateTeam([FromBody]Team newTeam) 
+		public virtual IActionResult CreateTeam([FromBody]Team newTeam) 
 		{
 			repository.AddTeam(newTeam);
 			//TODO: add test that asserts result is a 201 pointing to URL of the created team.
@@ -48,7 +48,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpPut("{id}")]
-		public async virtual Task<IActionResult> UpdateTeam([FromBody]Team team, Guid id) 
+		public virtual IActionResult UpdateTeam([FromBody]Team team, Guid id) 
 		{
 			team.ID = id;
 						
@@ -60,7 +60,7 @@ namespace StatlerWaldorfCorp.TeamService
 		}
 
 		[HttpDelete("{id}")]
-        public async virtual Task<IActionResult> DeleteTeam(Guid id)
+        public virtual IActionResult DeleteTeam(Guid id)
 		{
 			Team team = repository.DeleteTeam(id);
 
