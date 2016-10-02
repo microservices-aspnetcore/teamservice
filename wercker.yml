@@ -46,3 +46,31 @@ deploy:
         repository: dotnetcoreservices/teamservice
         registry: https://registry.hub.docker.com
         entrypoint: "/pipeline/source/app/docker_entrypoint.sh"
+migrate:
+  steps:
+    - script:
+        name: restore
+        cwd: app
+        code: |
+          dotnet restore
+    - script:
+        name: build
+        cwd: app
+        code: |
+          dotnet build
+    - script:
+        name: migrate
+        cwd: app
+        code: |
+           vcap__services__postgres__0__name=postgres vcap__services__postgres__0__credentials__uri=$POSTGRES_URL dotnet ef database update
+cloud-deploy:
+  steps:
+    - chrisumbel/cf-deploy:
+        api: $API
+        user: $USER
+        password: $PASSWORD
+        org: $ORG
+        space: $SPACE
+        appname: teamservice
+        docker_image: dotnetcoreservices/teamservice
+        skip_ssl_validation: true        
