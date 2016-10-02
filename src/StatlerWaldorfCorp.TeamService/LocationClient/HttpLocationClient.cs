@@ -10,7 +10,12 @@ namespace StatlerWaldorfCorp.TeamService.LocationClient
 {
     public class HttpLocationClient : ILocationClient
     {
-        public static String URL {get; set;}
+        public String URL {get; set;}
+
+        public HttpLocationClient(string url)
+        {
+            this.URL = url;
+        }
 
         public async Task<LocationRecord> GetLatestForMember(Guid memberId) 
         {
@@ -18,10 +23,7 @@ namespace StatlerWaldorfCorp.TeamService.LocationClient
 
             using (var httpClient = new HttpClient())
             {
-                Console.WriteLine("-------------");
-                Console.WriteLine(URL);
-
-                httpClient.BaseAddress = new Uri(URL);
+                httpClient.BaseAddress = new Uri(this.URL);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
