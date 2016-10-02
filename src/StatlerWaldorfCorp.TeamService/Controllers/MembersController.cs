@@ -76,6 +76,7 @@ namespace StatlerWaldorfCorp.TeamService
 				} else {
 					team.Members.Remove(q.First());
 					team.Members.Add(updatedMember);
+					this.repository.UpdateTeam(team);					
 					return this.Ok();
 				}
 			}			
@@ -90,6 +91,7 @@ namespace StatlerWaldorfCorp.TeamService
 				return this.NotFound();
 			} else {
 				team.Members.Add(newMember);
+				this.repository.UpdateTeam(team);
 				var teamMember = new {TeamID = team.ID, MemberID = newMember.ID};
 				return this.Created($"/teams/{teamMember.TeamID}/[controller]/{teamMember.MemberID}", teamMember);
 			}

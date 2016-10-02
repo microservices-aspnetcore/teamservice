@@ -45,6 +45,8 @@ namespace StatlerWaldorfCorp.TeamService {
             services.AddScoped<ITeamRepository, PostgresTeamRepository>();
             services.AddScoped<ILocationClient, HttpLocationClient>();
 
+            HttpLocationClient.URL = Configuration.GetValue<string>("vcap:services:user-provided:0:credentials:url");
+
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(Configuration));            
         }

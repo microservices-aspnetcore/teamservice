@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using StatlerWaldorfCorp.TeamService;
 using StatlerWaldorfCorp.TeamService.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace StatlerWaldorfCorp.TeamService.Persistence
 {
@@ -18,7 +19,7 @@ namespace StatlerWaldorfCorp.TeamService.Persistence
 		}
 
 		public Team GetTeam(Guid id) {
-			return this.context.Teams.Single(team => team.ID == id);
+			return this.context.Teams.Include(team => team.Members).Single(team => team.ID == id);
 		}
 
 		public Team UpdateTeam(Team team) 
