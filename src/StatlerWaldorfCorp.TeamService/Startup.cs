@@ -9,17 +9,32 @@ using StatlerWaldorfCorp.TeamService.LocationClient;
 using StatlerWaldorfCorp.TeamService.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
-
+using Steeltoe.Extensions.Configuration;
+using Steeltoe.CloudFoundry.Connector.PostgreSql.EFCore;
 
 namespace StatlerWaldorfCorp.TeamService {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public static string[] Args {get; set;} = new string[] {};        
+        private ILogger logger;
+        private ILoggerFactory loggerFactory;
+        
+        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             var builder = new ConfigurationBuilder()
-                .AddEnvironmentVariables();
+                .SetBasePath(System.IO.Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .AddCommandLine(Startup.Args)
+                .AddCloudFoundry();
 
             Configuration = builder.Build();
+
+            this.loggerFactory = loggerFactory;
+            this.loggerFactory.AddConsole(LogLevel.Information);
+            this.loggerFactory.AddDebug();
+
+            this.logger = this.loggerFactory.CreateLogger("Startup");            
         }
                 
         public IConfigurationRoot Configuration { get; }
@@ -31,8 +46,7 @@ namespace StatlerWaldorfCorp.TeamService {
             services.AddScoped<ILocationClient, HttpLocationClient>();
 
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("TeamConnString")));
-            
+                options.UseNpgsql(Configuration));            
         }
 
         public void Configure(IApplicationBuilder app)

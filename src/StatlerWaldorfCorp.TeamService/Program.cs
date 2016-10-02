@@ -13,6 +13,8 @@ namespace StatlerWaldorfCorp.TeamService
                 .AddCommandLine(args)
             	.Build();
 
+			Startup.Args = args;
+
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseStartup<Startup>()

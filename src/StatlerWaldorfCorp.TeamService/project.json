@@ -23,6 +23,9 @@
     "Npgsql.EntityFrameworkCore.PostgreSQL": "1.0.1-*",
     "Npgsql.EntityFrameworkCore.PostgreSQL.Design": "1.0.1-*",
 
+    // Configuration
+    "Steeltoe.Extensions.Configuration.CloudFoundry": "1.0.0-dev-*",
+    "Steeltoe.CloudFoundry.Connector.PostgreSql": "1.0.0-dev-*",
     "Microsoft.Extensions.Configuration.CommandLine": "1.0.0"
   },
   "tools": {
