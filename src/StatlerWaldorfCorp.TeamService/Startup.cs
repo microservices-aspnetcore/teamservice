@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Steeltoe.Extensions.Configuration;
 using Steeltoe.CloudFoundry.Connector.PostgreSql.EFCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace StatlerWaldorfCorp.TeamService {
     public class Startup
