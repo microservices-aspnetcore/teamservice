@@ -45,12 +45,6 @@ build:
 
 # interation tests
     - script:
-        name: integration-migrate
-        cwd: test/StatlerWaldorfCorp.TeamService
-        code: |
-           export INTEGRATION_POSTGRES_URL=postgres://integrator:inteword@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/teamservice
-           vcap__services__postgres__0__name=postgres vcap__services__postgres__0__credentials__uri=$INTEGRATION_POSTGRES_URL dotnet ef database update                              
-    - script:
         name: integration-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Integration
         code: |
@@ -64,8 +58,7 @@ build:
         name: integration-test
         cwd: test/StatlerWaldorfCorp.TeamService.Integration
         code: |
-          export INTEGRATION_POSTGRES_URL=postgres://integrator:inteword@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/teamservice
-          vcap__services__postgres__0__name=postgres vcap__services__postgres__0__credentials__uri=$INTEGRATION_POSTGRES_URL dotnet test
+          dotnet test
 
 # packaging                    
     - script:
