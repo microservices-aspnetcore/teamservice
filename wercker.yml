@@ -5,7 +5,7 @@ services:
      env:
        POSTGRES_PASSWORD: inteword
        POSTGRES_USER: integrator   
-       POSTGRES_DB: teamservicebuild:
+       POSTGRES_DB: teamservicebuild
   steps: 
 # compile    
     - script:
