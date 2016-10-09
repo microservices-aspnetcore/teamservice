@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace StatlerWaldorfCorp.TeamService.Integration
 {
-    public class PostgresTest
+    public class PostgresIntegrationTest
     {	    
         [Fact]
         public void Integration()
