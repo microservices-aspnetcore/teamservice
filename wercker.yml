@@ -6,6 +6,8 @@ services:
        POSTGRES_PASSWORD: inteword
        POSTGRES_USER: integrator   
        POSTGRES_DB: teamservicebuild
+no-response-timeout: 10
+build:
   steps: 
 # compile    
     - script:
