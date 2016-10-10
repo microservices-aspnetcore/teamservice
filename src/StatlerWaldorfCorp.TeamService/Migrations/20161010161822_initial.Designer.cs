@@ -8,7 +8,7 @@ using StatlerWaldorfCorp.TeamService.Persistence;
 namespace StatlerWaldorfCorp.TeamService.Migrations
 {
     [DbContext(typeof(TeamDbContext))]
-    [Migration("20161010160844_initial")]
+    [Migration("20161010161822_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,7 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
 
                     b.HasIndex("TeamID");
 
-                    b.ToTable("Member");
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("StatlerWaldorfCorp.TeamService.Models.Team", b =>

@@ -24,7 +24,7 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Member",
+                name: "Members",
                 columns: table => new
                 {
                     ID = table.Column<Guid>(nullable: false)
@@ -35,9 +35,9 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Member", x => x.ID);
+                    table.PrimaryKey("PK_Members", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Member_Teams_TeamID",
+                        name: "FK_Members_Teams_TeamID",
                         column: x => x.TeamID,
                         principalTable: "Teams",
                         principalColumn: "ID",
@@ -45,8 +45,8 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Member_TeamID",
-                table: "Member",
+                name: "IX_Members_TeamID",
+                table: "Members",
                 column: "TeamID");
         }
 
@@ -55,7 +55,7 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
             migrationBuilder.DropPostgresExtension("uuid-ossp");
 
             migrationBuilder.DropTable(
-                name: "Member");
+                name: "Members");
 
             migrationBuilder.DropTable(
                 name: "Teams");

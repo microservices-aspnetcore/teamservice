@@ -19,5 +19,6 @@ namespace StatlerWaldorfCorp.TeamService.Persistence
         }
 
         public DbSet<Team> Teams {get; set;}
+        public DbSet<Member> Members {get; set;}        
     }
 }

@@ -31,7 +31,7 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
 
                     b.HasIndex("TeamID");
 
-                    b.ToTable("Member");
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("StatlerWaldorfCorp.TeamService.Models.Team", b =>
