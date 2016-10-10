@@ -25,7 +25,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpGet]
 		public virtual IActionResult GetMembers(Guid teamID) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
@@ -38,7 +38,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
 		public async virtual Task<IActionResult> GetMember(Guid teamID, Guid memberId) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
@@ -64,7 +64,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
 		public virtual IActionResult UpdateMember([FromBody]Member updatedMember, Guid teamID, Guid memberId) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
@@ -76,7 +76,7 @@ namespace StatlerWaldorfCorp.TeamService
 				} else {
 					team.Members.Remove(q.First());
 					team.Members.Add(updatedMember);
-					this.repository.UpdateTeam(team);					
+					this.repository.Update(team);					
 					return this.Ok();
 				}
 			}			
@@ -85,13 +85,13 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpPost]
 		public virtual IActionResult CreateMember([FromBody]Member newMember, Guid teamID) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
 			} else {
 				team.Members.Add(newMember);
-				this.repository.UpdateTeam(team);
+				this.repository.Update(team);
 				var teamMember = new {TeamID = team.ID, MemberID = newMember.ID};
 				return this.Created($"/teams/{teamMember.TeamID}/[controller]/{teamMember.MemberID}", teamMember);
 			}

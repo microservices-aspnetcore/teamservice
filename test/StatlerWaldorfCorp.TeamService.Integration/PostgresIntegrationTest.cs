@@ -37,9 +37,9 @@ namespace StatlerWaldorfCorp.TeamService.Integration
             Team team = new Team() {Name = "Team " + id.ToString(), ID = id};
 
             PostgresTeamRepository repository = new PostgresTeamRepository(context);
-            repository.AddTeam(team);
+            repository.Add(team);
 
-            Team savedTeam = repository.GetTeam(id);
+            Team savedTeam = repository.Get(id);
 
             Assert.NotNull(savedTeam);
             Assert.Equal(savedTeam.ID, id);

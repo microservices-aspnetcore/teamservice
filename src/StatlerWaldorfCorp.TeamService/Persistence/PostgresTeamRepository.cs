@@ -14,29 +14,29 @@ namespace StatlerWaldorfCorp.TeamService.Persistence
 			this.context = context;
 		}
 
-		public IEnumerable<Team> GetTeams() {
+		public IEnumerable<Team> List() {
 			return this.context.Teams.ToList();
 		}
 
-		public Team GetTeam(Guid id) {
+		public Team Get(Guid id) {
 			return this.context.Teams.Include(team => team.Members).Single(team => team.ID == id);
 		}
 
-		public Team UpdateTeam(Team team) 
+		public Team Update(Team team) 
 		{
 			this.context.SaveChanges();
 			return team;
 		}
 
-		public Team AddTeam(Team team) 
+		public Team Add(Team team) 
 		{
 			this.context.Add(team);
 			this.context.SaveChanges();
 			return team;
 		}
 
-		public Team DeleteTeam(Guid id) {	
-			Team team = this.GetTeam(id);
+		public Team Delete(Guid id) {	
+			Team team = this.Get(id);
 			this.context.Remove(team);
 			this.context.SaveChanges();
 			return team;
