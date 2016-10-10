@@ -19,13 +19,13 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestController", teamId);
-            repository.AddTeam(team);        
+            repository.Add(team);        
 
             Guid newMemberId = Guid.NewGuid();
             Member newMember = new Member(newMemberId);
             controller.CreateMember(newMember, teamId);
 
-            team = repository.GetTeam(teamId);
+            team = repository.Get(teamId);
             Assert.True(team.Members.Contains(newMember));
         }        
 
@@ -52,7 +52,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestTeam", teamId);
-            var debugTeam = repository.AddTeam(team);        
+            var debugTeam = repository.Add(team);        
 
             Guid memberId = Guid.NewGuid();
             Member newMember = new Member(memberId);
@@ -72,7 +72,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestTeam", teamId);
-            var debugTeam = repository.AddTeam(team);        
+            var debugTeam = repository.Add(team);        
 
             Guid firstMemberId = Guid.NewGuid();
             Member newMember = new Member(firstMemberId);
@@ -100,7 +100,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestTeam", teamId);
-            var debugTeam = repository.AddTeam(team);        
+            var debugTeam = repository.Add(team);        
 
             ICollection<Member> members = (ICollection<Member>)(controller.GetMembers(teamId) as ObjectResult).Value;
             Assert.Empty(members);
@@ -134,7 +134,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestTeam", teamId);
-            var debugTeam = repository.AddTeam(team);        
+            var debugTeam = repository.Add(team);        
 
             var result = controller.GetMember(teamId, Guid.NewGuid());
             Assert.True(result is NotFoundResult);
@@ -148,7 +148,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestTeam", teamId);
-            var debugTeam = repository.AddTeam(team);        
+            var debugTeam = repository.Add(team);        
 
             Guid memberId = Guid.NewGuid();
             Member newMember = new Member(memberId);
@@ -156,14 +156,14 @@ namespace StatlerWaldorfCorp.TeamService
             newMember.LastName = "Smith";
             controller.CreateMember(newMember, teamId);
 
-	        team = repository.GetTeam(teamId);
+	        team = repository.Get(teamId);
 	    
             Member updatedMember = new Member(memberId);
             updatedMember.FirstName = "Bob";
             updatedMember.LastName = "Jones";            
             controller.UpdateMember(updatedMember, teamId, memberId);
  
-            team = repository.GetTeam(teamId);
+            team = repository.Get(teamId);
             Member testMember = team.Members.Where(m => m.ID == memberId).First();
 	    
             Assert.Equal(testMember.FirstName, "Bob");
@@ -178,7 +178,7 @@ namespace StatlerWaldorfCorp.TeamService
 
             Guid teamId = Guid.NewGuid();
             Team team = new Team("TestController", teamId);
-            repository.AddTeam(team);        
+            repository.Add(team);        
 
             Guid memberId = Guid.NewGuid();
             Member newMember = new Member(memberId);

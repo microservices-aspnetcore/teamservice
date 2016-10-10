@@ -19,32 +19,32 @@ namespace StatlerWaldorfCorp.TeamService.Persistence
 			_teams = teams;
 		}
 
-		public IEnumerable<Team> GetTeams() {
+		public IEnumerable<Team> List() {
 			return _teams; 
 		}
 
-		public Team GetTeam(Guid id) {
+		public Team Get(Guid id) {
 			return _teams.FirstOrDefault(t => t.ID == id);			
 		}
 
-		public Team UpdateTeam(Team t) 
+		public Team Update(Team t) 
 		{
-			Team team = this.DeleteTeam(t.ID);
+			Team team = this.Delete(t.ID);
 	
 			if(team != null) {
-				team = this.AddTeam(t);
+				team = this.Add(t);
 			}
 
 			return team;
 		}
 
-		public Team AddTeam(Team team) 
+		public Team Add(Team team) 
 		{
 			_teams.Add(team);
 			return team;
 		}
 
-		public Team DeleteTeam(Guid id) {	
+		public Team Delete(Guid id) {	
 			var q = _teams.Where(t => t.ID == id);
 			Team team = null;
 

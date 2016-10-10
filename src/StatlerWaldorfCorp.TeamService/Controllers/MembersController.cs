@@ -22,7 +22,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpGet]
 		public virtual IActionResult GetMembers(Guid teamID) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
@@ -36,7 +36,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
 		public virtual IActionResult GetMember(Guid teamID, Guid memberId) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
@@ -55,7 +55,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
 		public virtual IActionResult UpdateMember([FromBody]Member updatedMember, Guid teamID, Guid memberId) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
@@ -75,7 +75,7 @@ namespace StatlerWaldorfCorp.TeamService
 		[HttpPost]
 		public virtual IActionResult CreateMember([FromBody]Member newMember, Guid teamID) 
 		{
-			Team team = repository.GetTeam(teamID);
+			Team team = repository.Get(teamID);
 			
 			if(team == null) {
 				return this.NotFound();
