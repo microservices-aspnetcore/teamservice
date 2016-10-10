@@ -44,12 +44,12 @@ namespace StatlerWaldorfCorp.TeamService {
         public void ConfigureServices(IServiceCollection services)
         {
 	        services.AddMvc();
-            services.AddScoped<ITeamRepository, PostgresTeamRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddSingleton<ILocationClient>(
                 new HttpLocationClient(
                     Configuration.GetValue<string>("vcap:services:user-provided:0:credentials:url")));
 
-            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
+            services.AddEntityFrameworkNpgsql().AddDbContext<TeamDbContext>(options =>
                 options.UseNpgsql(Configuration));            
         }
 

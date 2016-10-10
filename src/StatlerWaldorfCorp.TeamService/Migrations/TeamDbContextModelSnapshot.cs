@@ -7,8 +7,8 @@ using StatlerWaldorfCorp.TeamService.Persistence;
 
 namespace StatlerWaldorfCorp.TeamService.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TeamDbContext))]
+    partial class TeamDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

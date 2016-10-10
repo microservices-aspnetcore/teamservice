@@ -6,9 +6,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace StatlerWaldorfCorp.TeamService.Persistence 
 {
-    public class ApplicationDbContext : DbContext
+    public class TeamDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :base(options)
+        public TeamDbContext(DbContextOptions<TeamDbContext> options) :base(options)
         {
         }
 

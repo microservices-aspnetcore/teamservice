@@ -7,8 +7,8 @@ using StatlerWaldorfCorp.TeamService.Persistence;
 
 namespace StatlerWaldorfCorp.TeamService.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160926123045_initial")]
+    [DbContext(typeof(TeamDbContext))]
+    [Migration("20161010160844_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

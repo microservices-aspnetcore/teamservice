@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace StatlerWaldorfCorp.TeamService.Persistence
 {
-	public class PostgresTeamRepository :  ITeamRepository {
-       	private ApplicationDbContext context;
+	public class TeamRepository :  ITeamRepository {
+       	private TeamDbContext context;
 
-		public PostgresTeamRepository(ApplicationDbContext context) {
+		public TeamRepository(TeamDbContext context) {
 			this.context = context;
 		}
 

@@ -16,7 +16,7 @@ namespace StatlerWaldorfCorp.TeamService.Integration
     public class PostgresIntegrationTest
     {	    
         private IConfigurationRoot config;
-        private ApplicationDbContext context;
+        private TeamDbContext context;
 
         public PostgresIntegrationTest()
         {
@@ -25,9 +25,9 @@ namespace StatlerWaldorfCorp.TeamService.Integration
                 .AddCloudFoundry()
                 .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<TeamDbContext>();
             optionsBuilder.UseNpgsql(config);
-            this.context = new ApplicationDbContext(optionsBuilder.Options);                
+            this.context = new TeamDbContext(optionsBuilder.Options);                
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace StatlerWaldorfCorp.TeamService.Integration
             Guid id = Guid.NewGuid();
             Team team = new Team() {Name = "Team " + id.ToString(), ID = id};
 
-            PostgresTeamRepository repository = new PostgresTeamRepository(context);
+            TeamRepository repository = new TeamRepository(context);
             repository.Add(team);
 
             Team savedTeam = repository.Get(id);
