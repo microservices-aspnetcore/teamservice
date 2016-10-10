@@ -2,7 +2,9 @@
     "dependencies": {
         "StatlerWaldorfCorp.TeamService": "*",        
         "xunit": "2.1.0",
-        "dotnet-test-xunit": "2.2.0-preview2-build1029"
+        "dotnet-test-xunit": "2.2.0-preview2-build1029",
+        "Steeltoe.Extensions.Configuration.CloudFoundry": "1.0.0-dev-*",
+        "Steeltoe.CloudFoundry.Connector.PostgreSql": "1.0.0-dev-*"
     },
     "testRunner": "xunit",
     "frameworks": {
