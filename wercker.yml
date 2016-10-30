@@ -48,6 +48,8 @@ build:
         name: integration-migrate
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
+           dotnet restore
+           dotnet build
            export INTEGRATION_POSTGRES_URL=postgres://integrator:inteword@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/teamservice
            vcap__services__postgres__0__name=postgres vcap__services__postgres__0__credentials__uri=$INTEGRATION_POSTGRES_URL dotnet ef database update
     - script:
