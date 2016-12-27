@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+# Wercker temp
+.wercker/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
