@@ -7,24 +7,24 @@ using StatlerWaldorfCorp.TeamService.Models;
 namespace StatlerWaldorfCorp.TeamService.Persistence
 {
 	public class MemoryTeamRepository :  ITeamRepository {
-		protected static ICollection<Team> _teams;
+		protected static ICollection<Team> teams;
 
 		public MemoryTeamRepository() {
-			if(_teams == null) {
-				_teams = new List<Team>();
+			if(teams == null) {
+				teams = new List<Team>();
 			}
 		}
 
 		public MemoryTeamRepository(ICollection<Team> teams) {
-			_teams = teams;
+            MemoryTeamRepository.teams = teams;
 		}
 
 		public IEnumerable<Team> List() {
-			return _teams; 
+			return teams; 
 		}
 
 		public Team Get(Guid id) {
-			return _teams.FirstOrDefault(t => t.ID == id);			
+			return teams.FirstOrDefault(t => t.ID == id);			
 		}
 
 		public Team Update(Team t) 
@@ -40,17 +40,17 @@ namespace StatlerWaldorfCorp.TeamService.Persistence
 
 		public Team Add(Team team) 
 		{
-			_teams.Add(team);
+			teams.Add(team);
 			return team;
 		}
 
 		public Team Delete(Guid id) {	
-			var q = _teams.Where(t => t.ID == id);
+			var q = teams.Where(t => t.ID == id);
 			Team team = null;
 
 			if (q.Count() > 0) {				
 				team = q.First();
-				_teams.Remove(team);
+				teams.Remove(team);
 			}							
 
 			return team; 			
