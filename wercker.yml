@@ -1,15 +1,7 @@
-box: dotnetcoreservices/sdk
-no-response-timeout: 10
-services:
-   - id: postgres
-     env:
-       POSTGRES_PASSWORD: inteword
-       POSTGRES_USER: integrator   
-       POSTGRES_DB: teamservicebuild
+box: microsoft/dotnet:1.1.0-sdk-msbuild
 no-response-timeout: 10
 build:
   steps: 
-# compile    
     - script:
         name: restore
         cwd: src/StatlerWaldorfCorp.TeamService
@@ -25,8 +17,6 @@ build:
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
           dotnet publish -o publish
-
-# unit tests  
     - script:
         name: test-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Tests
@@ -42,32 +32,21 @@ build:
         cwd: test/StatlerWaldorfCorp.TeamService.Tests
         code: |
           dotnet test
-
-# interation tests
     - script:
-        name: integration-migrate
-        cwd: src/StatlerWaldorfCorp.TeamService
+        name: integration-test-restore
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
         code: |
-           export INTEGRATION_POSTGRES_URL=postgres://integrator:inteword@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/teamservice
-           vcap__services__postgres__0__name=postgres vcap__services__postgres__0__credentials__uri=$INTEGRATION_POSTGRES_URL dotnet ef database update
+          dotnet restore
     - script:
-        name: integration-restore
-        cwd: test/StatlerWaldorfCorp.TeamService.Integration
-        code: |
-           dotnet restore
-    - script:
-        name: integration-build
-        cwd: test/StatlerWaldorfCorp.TeamService.Integration
+        name: integration-test-build
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
         code: |
           dotnet build
     - script:
-        name: integration-test
-        cwd: test/StatlerWaldorfCorp.TeamService.Integration
-        code: |          
-          export INTEGRATION_POSTGRES_URL=postgres://integrator:inteword@$POSTGRES_PORT_5432_TCP_ADDR:$POSTGRES_PORT_5432_TCP_PORT/teamservice
-          vcap__services__postgres__0__name=postgres vcap__services__postgres__0__credentials__uri=$INTEGRATION_POSTGRES_URL dotnet test
-
-# packaging                    
+        name: integration-test-run
+        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
+        code: |
+          dotnet test
     - script:
         name: copy binary
         cwd: src/StatlerWaldorfCorp.TeamService
@@ -82,31 +61,3 @@ deploy:
         repository: dotnetcoreservices/teamservice
         registry: https://registry.hub.docker.com
         entrypoint: "/pipeline/source/app/docker_entrypoint.sh"
-migrate:
-  steps:
-    - script:
-        name: restore
-        cwd: app
-        code: |
-          dotnet restore
-    - script:
-        name: build
-        cwd: app
-        code: |
-          dotnet build
-    - script:
-        name: migrate
-        cwd: app
-        code: |
-           vcap__services__postgres__0__name=postgres vcap__services__postgres__0__credentials__uri=$POSTGRES_URL dotnet ef database update
-cloud-deploy:
-  steps:
-    - chrisumbel/cf-deploy:
-        api: $API
-        user: $USER
-        password: $PASSWORD
-        org: $ORG
-        space: $SPACE
-        appname: teamservice
-        docker_image: dotnetcoreservices/teamservice
-        skip_ssl_validation: true        

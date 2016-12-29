@@ -2,3 +2,5 @@
 
 # Team Service
 The first microservice sample from the **Building Microservices with ASP.NET Core** book.
+
+The `location` branch adds integration to consume the location backing service, as described in Chapter 4 of the book.
