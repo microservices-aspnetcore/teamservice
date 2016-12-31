@@ -67,7 +67,9 @@ namespace StatlerWaldorfCorp.TeamService
 		{
 			Guid result = GetTeamIdForMember(memberId);
 			if (result != Guid.Empty) {
-				return this.Ok(result);
+				return this.Ok(new {
+					TeamID = result
+				});
 			} else {
 				return this.NotFound();
 			}
