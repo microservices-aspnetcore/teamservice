@@ -61,6 +61,18 @@ namespace StatlerWaldorfCorp.TeamService
 			}
 		}
 
+		[HttpGet]
+		[Route("/members/{memberId}/team")]
+		public IActionResult GetMemberTeamId(Guid memberId) 
+		{
+			Guid result = GetTeamIdForMember(memberId);
+			if (result != Guid.Empty) {
+				return this.Ok(result);
+			} else {
+				return this.NotFound();
+			}
+		}
+
 		[HttpPut]
 		[Route("/teams/{teamId}/[controller]/{memberId}")]		
 		public virtual IActionResult UpdateMember([FromBody]Member updatedMember, Guid teamID, Guid memberId) 
@@ -96,6 +108,17 @@ namespace StatlerWaldorfCorp.TeamService
 				var teamMember = new {TeamID = team.ID, MemberID = newMember.ID};
 				return this.Created($"/teams/{teamMember.TeamID}/[controller]/{teamMember.MemberID}", teamMember);
 			}
+		}
+
+		private Guid GetTeamIdForMember(Guid memberId) 
+		{
+			foreach (var team in repository.List()) {
+				var member = team.Members.FirstOrDefault( m => m.ID == memberId);
+				if (member != null) {
+					return team.ID;
+				}
+			}
+			return Guid.Empty;
 		}
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using StatlerWaldorfCorp.TeamService.LocationClient;
+using StatlerWaldorfCorp.TeamService.Persistence;
 
 [assembly:CollectionBehavior(MaxParallelThreads = 1)]
 
