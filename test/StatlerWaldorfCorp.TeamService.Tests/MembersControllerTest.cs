@@ -4,6 +4,7 @@ using StatlerWaldorfCorp.TeamService.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using StatlerWaldorfCorp.TeamService.Persistence;
 
 [assembly:CollectionBehavior(MaxParallelThreads = 1)]
 
