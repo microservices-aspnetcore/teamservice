@@ -7,6 +7,7 @@ using System.Linq;
 using StatlerWaldorfCorp.TeamService.Models;
 using System.Threading.Tasks;
 using StatlerWaldorfCorp.TeamService.LocationClient;
+using StatlerWaldorfCorp.TeamService.Persistence;
 
 namespace StatlerWaldorfCorp.TeamService
 {
