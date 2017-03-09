@@ -18,7 +18,7 @@ build:
         code: |
           dotnet publish -o $WERCKER_OUTPUT_DIR/app/publish
           cp appsettings.json $WERCKER_OUTPUT_DIR/app/publish
-          ls -F $WERCKER_OUTPUT_DIR/app/publish
+          cp docker_entrypoint.sh $WERCKER_OUTPUT_DIR/app          
     - script:
         name: test-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Tests
