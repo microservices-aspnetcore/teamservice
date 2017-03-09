@@ -14,7 +14,7 @@ namespace StatlerWaldorfCorp.TeamService
     public class MembersControllerTest
     {	    
         [Fact]
-        public void CreateMemberAddsTeamToList() 
+        public void TestCreateMemberAddsTeamToList() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -32,7 +32,7 @@ namespace StatlerWaldorfCorp.TeamService
         }        
 
         [Fact]
-        public void CreateMembertoNonexistantTeamReturnsNotFound() 
+        public void TestCreateMembertoNonexistantTeamReturnsNotFound() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -47,7 +47,7 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
-        public async void GetExistingMemberReturnsMember() 
+        public async void TestGetExistingMemberReturnsMember() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -67,7 +67,7 @@ namespace StatlerWaldorfCorp.TeamService
         }   
 
         [Fact]
-        public void GetMembersReturnsMembers() 
+        public void TestGetMembersReturnsMembers() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -95,7 +95,7 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
-        public void GetMembersForNewTeamIsEmpty() 
+        public void TestGetMembersForNewTeamIsEmpty() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -109,7 +109,7 @@ namespace StatlerWaldorfCorp.TeamService
         }     
 
         [Fact]
-        public void GetMembersForNonExistantTeamReturnNotFound() 
+        public void TestGetMembersForNonExistantTeamReturnNotFound() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -119,7 +119,7 @@ namespace StatlerWaldorfCorp.TeamService
         }           
 
         [Fact]
-        public async void GetNonExistantTeamReturnsNotFound() 
+        public async void TestGetNonExistantTeamReturnsNotFound() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -129,7 +129,7 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
-        public async void GetNonExistantMemberReturnsNotFound() 
+        public async void TestGetNonExistantMemberReturnsNotFound() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -143,7 +143,7 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
-        public void UpdateMemberOverwrites() 
+        public void TestUpdateMemberOverwrites() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -173,7 +173,7 @@ namespace StatlerWaldorfCorp.TeamService
         }           
 
         [Fact]
-        public void UpdateMembertoNonexistantMemberReturnsNoMatch() 
+        public void TestUpdateMembertoNonexistantMemberReturnsNoMatch() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -197,7 +197,7 @@ namespace StatlerWaldorfCorp.TeamService
 
 #region "location" 
         [Fact]
-        public async void AddsLocation() 
+        public async void TestAddsLocation() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MemoryLocationClient locationClient = new MemoryLocationClient();
@@ -213,14 +213,14 @@ namespace StatlerWaldorfCorp.TeamService
             newMember.LastName = "Smith";
             controller.CreateMember(newMember, teamId);
 
-            locationClient.AddLocation(memberId, new LocationRecord() {
+            await locationClient.AddLocation(memberId, new LocationRecord() {
                 Timestamp = 1, Altitude = 123.45f});
             
             Assert.True(locationClient.MemberLocationHistory.ContainsKey(memberId));
         }
 
         [Fact]
-        public async void GetNewMemberReturnsMemberWithEmtpyLastLocation() 
+        public async void TestGetNewMemberReturnsMemberWithEmtpyLastLocation() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             MembersController controller = new MembersController(repository, new MemoryLocationClient());
@@ -241,7 +241,7 @@ namespace StatlerWaldorfCorp.TeamService
         }
 
         [Fact]
-        public async void GetMemberReturnsLastLocation() 
+        public async void TestGetMemberReturnsLastLocation() 
         {
             ITeamRepository repository = new TestMemoryTeamRepository();
             ILocationClient locationClient = new MemoryLocationClient();
@@ -257,11 +257,11 @@ namespace StatlerWaldorfCorp.TeamService
             newMember.LastName = "Smith";
             controller.CreateMember(newMember, teamId);
 
-            locationClient.AddLocation(memberId, new LocationRecord() {
+            await locationClient.AddLocation(memberId, new LocationRecord() {
                 Timestamp = 1, Altitude = 123.45f});
-            locationClient.AddLocation(memberId, new LocationRecord() {
+            await locationClient.AddLocation(memberId, new LocationRecord() {
                 Timestamp = 3, Altitude = 123.47f});
-            locationClient.AddLocation(memberId, new LocationRecord() {
+            await locationClient.AddLocation(memberId, new LocationRecord() {
                 Timestamp = 2, Altitude = 123.46f});
             
             LocatedMember member = (LocatedMember)(await controller.GetMember(teamId, memberId) as ObjectResult).Value;

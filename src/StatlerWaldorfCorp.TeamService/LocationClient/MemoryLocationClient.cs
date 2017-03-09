@@ -8,33 +8,39 @@ namespace StatlerWaldorfCorp.TeamService.LocationClient
 {
     public class MemoryLocationClient : ILocationClient
     {
-        public Dictionary<Guid, SortedList<long, LocationRecord>> MemberLocationHistory {get; set;}            
-            
-        public async Task<LocationRecord> AddLocation(Guid memberId, LocationRecord locationRecord) 
+        public Dictionary<Guid, SortedList<long, LocationRecord>> MemberLocationHistory { get; set; }
+
+        public async Task<LocationRecord> AddLocation(Guid memberId, LocationRecord locationRecord)
         {
-            if(!MemberLocationHistory.ContainsKey(memberId))
-            {
-                MemberLocationHistory.Add(memberId, new SortedList<long, LocationRecord>());
-            }
+            return await Task.Run(() =>
+           {
+               if (!MemberLocationHistory.ContainsKey(memberId))
+               {
+                   MemberLocationHistory.Add(memberId, new SortedList<long, LocationRecord>());
+               }
 
-            MemberLocationHistory[memberId].Add(locationRecord.Timestamp, locationRecord);
+               MemberLocationHistory[memberId].Add(locationRecord.Timestamp, locationRecord);
 
-            return locationRecord;
+               return locationRecord;
+           });
         }
 
-        public MemoryLocationClient() 
+        public MemoryLocationClient()
         {
             this.MemberLocationHistory = new Dictionary<Guid, SortedList<long, LocationRecord>>();
         }
 
-        public async Task<LocationRecord> GetLatestForMember(Guid memberId) 
+        public async Task<LocationRecord> GetLatestForMember(Guid memberId)
         {
-            if(MemberLocationHistory.ContainsKey(memberId)) 
+            return await Task.Run(() =>
             {
-                return MemberLocationHistory[memberId].Values.LastOrDefault();
-            } 
+                if (MemberLocationHistory.ContainsKey(memberId))
+                {
+                    return MemberLocationHistory[memberId].Values.LastOrDefault();
+                }
 
-            return null;
+                return null;
+            });
         }
     }
 }

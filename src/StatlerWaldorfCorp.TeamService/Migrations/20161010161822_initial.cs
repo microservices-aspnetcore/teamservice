@@ -8,7 +8,8 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreatePostgresExtension("uuid-ossp");
+            migrationBuilder.EnsurePostgresExtension("uuid-ossp");
+            //migrationBuilder.CreatePostgresExtension("uuid-ossp");
 
             migrationBuilder.CreateTable(
                 name: "Teams",
@@ -52,7 +53,7 @@ namespace StatlerWaldorfCorp.TeamService.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropPostgresExtension("uuid-ossp");
+            //   migrationBuilder.DropPostgresExtension("uuid-ossp");
 
             migrationBuilder.DropTable(
                 name: "Members");

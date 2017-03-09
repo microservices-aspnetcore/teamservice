@@ -1,4 +1,4 @@
-box: microsoft/dotnet:1.1.0-sdk-msbuild
+box: microsoft/dotnet:1.1.1-sdk
 no-response-timeout: 10
 build:
   steps: 
@@ -16,7 +16,9 @@ build:
         name: publish
         cwd: src/StatlerWaldorfCorp.TeamService
         code: |
-          dotnet publish -o publish
+          dotnet publish -o $WERCKER_OUTPUT_DIR/app/publish
+          cp appsettings.json $WERCKER_OUTPUT_DIR/app/publish
+          ls -F $WERCKER_OUTPUT_DIR/app/publish
     - script:
         name: test-restore
         cwd: test/StatlerWaldorfCorp.TeamService.Tests
@@ -32,32 +34,14 @@ build:
         cwd: test/StatlerWaldorfCorp.TeamService.Tests
         code: |
           dotnet test
-    - script:
-        name: integration-test-restore
-        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
-        code: |
-          dotnet restore
-    - script:
-        name: integration-test-build
-        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
-        code: |
-          dotnet build
-    - script:
-        name: integration-test-run
-        cwd: test/StatlerWaldorfCorp.TeamService.Tests.Integration
-        code: |
-          dotnet test
-    - script:
-        name: copy binary
-        cwd: src/StatlerWaldorfCorp.TeamService
-        code: |
-          cp -r . $WERCKER_OUTPUT_DIR/app 
+               
 deploy:
   steps:
     - internal/docker-push:
         cwd: $WERCKER_OUTPUT_DIR/app
         username: $USERNAME
         password: $PASSWORD
+        tag: location
         repository: dotnetcoreservices/teamservice
         registry: https://registry.hub.docker.com
         entrypoint: "/pipeline/source/app/docker_entrypoint.sh"
